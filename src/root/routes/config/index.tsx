@@ -24,7 +24,10 @@ import NotFoundPage from "../../pages/errors/404.error";
 import { AuthSafe, AuthSafeWithRole } from "../../authentication/auth.safe";
 import AdminLayout from "../../pages/administration/index.layout";
 import { UserRole } from "../../../apis/auth.api";
-import { DashboardAdminPage } from "../../pages/administration/index.page";
+import {
+  DashboardAdminPage,
+  LocationAdminPage,
+} from "../../pages/administration/index.page";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +85,10 @@ const router = createBrowserRouter([
               {
                 path: "dashboard",
                 element: <DashboardAdminPage />,
+              },
+              {
+                path: "locations",
+                element: <LocationAdminPage />,
               },
             ],
           },

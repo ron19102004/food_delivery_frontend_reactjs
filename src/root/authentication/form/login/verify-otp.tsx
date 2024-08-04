@@ -16,7 +16,7 @@ interface IVerifyOTPProps {
 }
 const VerifyOTP: FC<IVerifyOTPProps> = ({ token }) => {
   const auth = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onChange = async (value: string) => {
     if (value.length === 6) {
       await verifyOtp(
@@ -25,17 +25,17 @@ const VerifyOTP: FC<IVerifyOTPProps> = ({ token }) => {
           token: token,
         },
         (res) => {
-          if (res.success === false) {
+          if (res.status === false) {
             toast(res.message, {
               type: "error",
             });
             return;
           }
-          auth.login(res.data.user,res.data.access_token);
+          auth.login(res.data.user, res.data.access_token);
           toast(res.message, {
             type: "success",
           });
-          navigate("/")
+          navigate("/");
         },
         (err) => {
           const res = err?.response?.data;

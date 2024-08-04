@@ -117,7 +117,7 @@ const PersonalLayout: React.FC = () => {
           ) : (
             <Link
               to={"/auth/login"}
-              className="border text-orange-600 border-orange-600 px-3 py-1 text-base rounded hover:bg-orange-600 hover:text-white transition-all"
+              className="block border text-orange-600 border-orange-600 px-3 py-1 text-base rounded hover:bg-orange-600 hover:text-white transition-all"
             >
               Sign In
             </Link>

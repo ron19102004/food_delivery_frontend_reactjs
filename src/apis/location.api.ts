@@ -23,3 +23,21 @@ export async function getAllLocation(
       errorHandler(err);
     });
 }
+export async function deletedLocation(
+  req: { token: string; id: number },
+  handler: (res: IResponseLayout<string>) => Promise<void>,
+  errorHandler: (err: any) => void
+): Promise<void> {
+  await axios
+    .delete<IResponseLayout<string>>(api(`locations/${req.id}`), {
+      headers: {
+        Authorization: `Bearer ${req.token}`,
+      },
+    })
+    .then(async(res) => {
+     await handler(res.data);
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
+}

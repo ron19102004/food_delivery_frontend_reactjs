@@ -28,7 +28,7 @@ const RegisterFormPage: React.FC = () => {
     await rgst(
       req,
       (res) => {    
-        if(res.success === false){
+        if(res.status === false){
             toast(res.message, {
               type: "error",
             });

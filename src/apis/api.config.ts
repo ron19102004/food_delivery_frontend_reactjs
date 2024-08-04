@@ -5,5 +5,5 @@ export default function api(url: string) {
 export interface IResponseLayout<T>{
   data: T;
   message: string;
-  success: boolean;
+  status: boolean;
 }

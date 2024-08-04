@@ -1,3 +1,4 @@
 import DashboardAdminPage from "./dashboard";
+import LocationAdminPage from "./location";
 
-export { DashboardAdminPage };
+export { DashboardAdminPage, LocationAdminPage };
