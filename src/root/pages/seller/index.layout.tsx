@@ -6,43 +6,31 @@ import {
   HiBars3,
   HiChevronDoubleLeft,
   HiHome,
-  HiMiniMapPin,
   HiUser,
-  HiUserCircle,
   HiMiniArrowRightOnRectangle,
-  HiMiniDocumentDuplicate,
+  HiMiniShoppingBag 
 } from "react-icons/hi2";
 import ModelToggle from "../../../components/model.component";
 import { INavLinkPersonal } from "../personal/index.layout";
 import LoopList from "../../../components/loop.component";
 import { IconType } from "react-icons/lib";
 import useRequestRole from "../../../hooks/useRequestRole.hook";
-interface INavLinkAdmin extends INavLinkPersonal {
+interface INavLinkSeller extends INavLinkPersonal {
   icon: IconType;
 }
-const list_menu: INavLinkAdmin[] = [
+const list_menu: INavLinkSeller[] = [
   {
-    path: "/admin/dashboard",
+    path: "/seller/dashboard",
     label: "Dashboard",
     icon: HiHome,
   },
   {
-    path: "/admin/locations",
-    label: "Location",
-    icon: HiMiniMapPin,
-  },
-  {
-    path: "/admin/user",
-    label: "User",
-    icon: HiUserCircle,
-  },
-  {
-    path: "/admin/category",
-    label: "Category",
-    icon: HiMiniDocumentDuplicate,
+    path: "/seller/my-shop",
+    label: "My Shop",
+    icon: HiMiniShoppingBag,
   },
 ];
-const AdminLayout: React.FC = () => {
+const SellerLayout: React.FC = () => {
   const { userCurrent, logout, accessToken, isAuthenticated } = useAuth();
   const sideBarRef = useRef<HTMLElement>(null);
   const openIconRef = useRef<HTMLDivElement>(null);
@@ -91,7 +79,7 @@ const AdminLayout: React.FC = () => {
             <ul className="space-y-2 p-2">
               <LoopList
                 list={list_menu}
-                render={(item: INavLinkAdmin) => {
+                render={(item: INavLinkSeller) => {
                   return (
                     <li className="font-font2">
                       <NavLink
@@ -161,7 +149,7 @@ const AdminLayout: React.FC = () => {
             </div>
           </button>
           <h1 className="font-font1 font-semibold text-2xl lg:text-3xl text-orange-600">
-            Admin Management
+            Seller Management
           </h1>
         </div>
         <Outlet />
@@ -170,4 +158,4 @@ const AdminLayout: React.FC = () => {
   );
 };
 
-export default AdminLayout;
+export default SellerLayout;

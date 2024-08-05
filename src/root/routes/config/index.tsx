@@ -11,6 +11,7 @@ import PersonalLayout from "../../pages/personal/index.layout";
 import {
   HomePersonalPage,
   ProfilePersonalPage,
+  RequestRolePage,
 } from "../../pages/personal/index.page";
 import AuthenticationLayout from "../../authentication/index.layout";
 import {
@@ -19,15 +20,19 @@ import {
 } from "../../authentication/index.page";
 import useAuth from "../../../hooks/useAuth.hook";
 import useLocation from "../../../hooks/useLocation.hook";
-import { getAllLocation } from "../../../apis/location.api";
 import NotFoundPage from "../../pages/errors/404.error";
 import { AuthSafe, AuthSafeWithRole } from "../../authentication/auth.safe";
 import AdminLayout from "../../pages/administration/index.layout";
 import { UserRole } from "../../../apis/auth.api";
 import {
+  CategoryAdminPage,
   DashboardAdminPage,
   LocationAdminPage,
+  UserManagerAdmin,
 } from "../../pages/administration/index.page";
+import useRequestRole from "../../../hooks/useRequestRole.hook";
+import { DashboardSellerPage, ShopSellerPage } from "../../pages/seller/index.page";
+import SellerLayout from "../../pages/seller/index.layout";
 
 const router = createBrowserRouter([
   {
@@ -65,7 +70,10 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <AuthSafe />,
-            children: [{ path: "me", element: <ProfilePersonalPage /> }],
+            children: [
+              { path: "me", element: <ProfilePersonalPage /> },
+              { path: "request-role", element: <RequestRolePage /> },
+            ],
           },
         ],
       },
@@ -89,6 +97,39 @@ const router = createBrowserRouter([
               {
                 path: "locations",
                 element: <LocationAdminPage />,
+              },
+              {
+                path: "user",
+                element: <UserManagerAdmin />,
+              },
+              {
+                path: "category",
+                element: <CategoryAdminPage />,
+              },
+            ],
+          },
+        ],
+      },
+       //Seller routes
+      {
+        path: "",
+        element: <AuthSafeWithRole role={UserRole.SELLER} />,
+        children: [
+          {
+            path: "seller",
+            element: <SellerLayout />,
+            children: [
+              {
+                path: "",
+                element: <Navigate to={"/seller/dashboard"} />,
+              },
+              {
+                path: "dashboard",
+                element: <DashboardSellerPage />,
+              },
+              {
+                path: "my-shop",
+                element: <ShopSellerPage />,
               },
             ],
           },
@@ -123,7 +164,8 @@ const router = createBrowserRouter([
 ]);
 const RouterPagesProvider: React.FC = () => {
   const { isAuthenticated, checkAuth, login } = useAuth();
-  const { setList } = useLocation();
+  const { loadList } = useLocation();
+  const { loadRolesRequest } = useRequestRole();
   const initializer = async () => {
     await checkAuth(
       (user, token) => {
@@ -131,12 +173,8 @@ const RouterPagesProvider: React.FC = () => {
       },
       () => {}
     );
-    await getAllLocation(
-      (res) => {
-        setList(res.data);
-      },
-      (_err) => {}
-    );
+    await loadList();
+    await loadRolesRequest();
   };
   useEffect(() => {
     initializer();

@@ -19,6 +19,9 @@ const ModelToggle: React.FC<IModelToggle> = ({
       closeIconRef.current &&
       e.target instanceof Element
     ) {
+      // console.log( elementRef.current)
+      // console.log( openIconRef.current)
+      // console.log( closeIconRef.current)
       if (
         openIconRef.current.contains(e.target) &&
         !openIconRef.current.classList.contains("hidden")

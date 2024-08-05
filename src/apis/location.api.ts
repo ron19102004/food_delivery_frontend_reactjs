@@ -34,8 +34,50 @@ export async function deletedLocation(
         Authorization: `Bearer ${req.token}`,
       },
     })
-    .then(async(res) => {
-     await handler(res.data);
+    .then(async (res) => {
+      await handler(res.data);
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
+}
+export async function createLocation(
+  req: { name: string; code: number; token?: string },
+  handler: (res: IResponseLayout<LocationEntity>) => Promise<void>,
+  errorHandler: (err: any) => void
+) {
+  const token: string = req.token ?? "";
+  delete req.token;
+  await axios
+    .post<IResponseLayout<LocationEntity>>(api("locations/new"), req, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(async (res) => {
+      await handler(res.data);
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
+}
+export async function updateLocation(
+  req: { name: string; code: number; token?: string; id?: number | string },
+  handler: (res: IResponseLayout<LocationEntity>) => Promise<void>,
+  errorHandler: (err: any) => void
+) {
+  const token: string = req.token ?? "";
+  delete req.token;
+  const id: number | string = req.id ?? "";
+  delete req.id;
+  await axios
+    .put<IResponseLayout<LocationEntity>>(api(`locations/${id}`), req, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(async (res) => {
+      await handler(res.data);
     })
     .catch((err) => {
       errorHandler(err);

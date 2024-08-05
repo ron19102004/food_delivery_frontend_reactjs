@@ -1,19 +1,47 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from "react";
 import useLocation from "../../../../hooks/useLocation.hook";
 // import { getAllLocation } from "../../../../apis/location.api";
 import LoopList from "../../../../components/loop.component";
 import LocationTable from "./table";
-import { LocationEntity } from "../../../../apis/location.api";
+import { deletedLocation, LocationEntity } from "../../../../apis/location.api";
 import { debounce } from "../../../../utils/debounce";
+import CreateLocationForm from "./create-location";
+import {
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+} from "@chakra-ui/react";
+import { HiMiniPlus, HiArrowPath } from "react-icons/hi2";
+import { toast } from "react-toastify";
+import useAuth from "../../../../hooks/useAuth.hook";
+import EditLocationForm from "./update-location";
 
 const cases_filter: string[] = ["Name", "Code"];
 const LocationAdminPage: React.FC = () => {
+  const { accessToken } = useAuth();
   const [indexFilterCase, setIndexFilterCase] = useState<number>(0);
   const [searchValue, setSearchValue] = useState<string | undefined>(undefined);
-  const { list } = useLocation();
+  const { list, loadList } = useLocation();
   const [listRender, setListRender] = useState<LocationEntity[]>([]);
+  const {
+    isOpen: isOpenCreate,
+    onOpen: onOpenCreate,
+    onClose: onCloseCreate,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenEdit,
+    onOpen: onOpenEdit,
+    onClose: onCloseEdit,
+  } = useDisclosure();
+  //for table
+  const [rowSelected, setRowSelected] = useState<LocationEntity | null>(null);
+
   const handleSearch = useCallback(
-    debounce((query: string, _case: number) => {     
+    debounce((query: string, _case: number) => {
       switch (_case) {
         case 0:
           setListRender(
@@ -36,6 +64,38 @@ const LocationAdminPage: React.FC = () => {
     }, 500),
     []
   );
+  const _deleteLocation = async () => {
+    if (rowSelected) {
+      const isDelete = confirm(
+        `Delete ${rowSelected.name}-${rowSelected.code} ?`
+      );
+      if (!isDelete) {
+        return;
+      }
+    } else {
+      toast("Please select a location to delete", {
+        type: "warning",
+      });
+      return;
+    }
+    await deletedLocation(
+      { token: accessToken ?? "", id: rowSelected.id },
+      async (res) => {
+        if (res.status === true) {
+          toast(res.message, {
+            type: "success",
+          });
+          await loadList();
+        }
+      },
+      (err) => {
+        const res = err.response.data;
+        toast(res.message ?? "Undefined error", {
+          type: "error",
+        });
+      }
+    );
+  };
   useEffect(() => {
     setListRender(list);
   }, [list]);
@@ -76,11 +136,74 @@ const LocationAdminPage: React.FC = () => {
           />
         </div>
       </div>
-      <div className="pt-2 h-96">
+      <div className="px-2 pt-2 md:px-4 font-font3 font-semibold flex justify-start items-center space-x-2">
+        <button
+          className="border border-neutral-800 h-10 px-3 bg-neutral-800 hover:bg-neutral-900 text-white rounded-sm flex justify-center items-center space-x-1"
+          onClick={async () => {
+            await loadList();
+            toast("Reloaded", {
+              type: "info",
+            });
+          }}
+        >
+          <HiArrowPath />
+          <span>Reload</span>
+        </button>
+        <button
+          className="border border-green-500 h-10 px-3 bg-green-500 hover:bg-green-600 text-white rounded-sm flex justify-center items-center space-x-1"
+          onClick={onOpenCreate}
+        >
+          <HiMiniPlus />
+          <span>Create</span>
+        </button>
+        <button
+          onClick={onOpenEdit}
+          className="border border-yellow-500 h-10 px-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-sm flex justify-center items-center space-x-1"
+        >
+          Edit
+        </button>
+        <button
+          onClick={_deleteLocation}
+          className="border border-red-500 h-10 px-3 bg-red-500 hover:bg-red-600 text-white rounded-sm flex justify-center items-center space-x-1"
+        >
+          Delete
+        </button>
+      </div>
+      <div className="pt-2">
         <LocationTable
           list={listRender}
+          rowSelected={rowSelected}
+          setRowSelected={(row) => {
+            setRowSelected(row);
+          }}
         />
       </div>
+      <div>
+        <Modal isOpen={isOpenCreate} onClose={onCloseCreate}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader className="text-orange-600 font-font2">
+              New a location
+            </ModalHeader>
+            <ModalCloseButton />
+            <CreateLocationForm onClose={onCloseCreate} />
+          </ModalContent>
+        </Modal>
+      </div>
+      {rowSelected ? (
+        <div>
+          <Modal isOpen={isOpenEdit} onClose={onCloseEdit}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader className="text-orange-600 font-font2">
+                Edit {rowSelected.name}-{rowSelected.code}
+              </ModalHeader>
+              <ModalCloseButton />
+              <EditLocationForm onClose={onCloseEdit} item={rowSelected} />
+            </ModalContent>
+          </Modal>
+        </div>
+      ) : null}
     </div>
   );
 };
