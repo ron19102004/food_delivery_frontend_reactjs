@@ -1,161 +1,184 @@
-import React, { useEffect, useRef } from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, {useEffect, useRef} from "react";
+import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth.hook";
-import { cn } from "../../../lib/utils";
+import {cn} from "../../../lib/utils";
 import {
-  HiBars3,
-  HiChevronDoubleLeft,
-  HiHome,
-  HiUser,
-  HiMiniArrowRightOnRectangle,
-  HiMiniShoppingBag 
+    HiBars3,
+    HiChevronDoubleLeft,
+    HiHome,
+    HiUser,
+    HiMiniArrowRightOnRectangle,
+    HiMiniShoppingBag,
+    HiTicket,
+    HiMiniTruck
 } from "react-icons/hi2";
 import ModelToggle from "../../../components/model.component";
-import { INavLinkPersonal } from "../personal/index.layout";
+import {INavLinkPersonal} from "../personal/index.layout";
 import LoopList from "../../../components/loop.component";
-import { IconType } from "react-icons/lib";
-import useRequestRole from "../../../hooks/useRequestRole.hook";
+import {IconType} from "react-icons/lib";
+import OrderProvider from "../../../contexts/order.context.tsx";
+import VoucherProvider from "../../../contexts/voucher.context.tsx";
+
 interface INavLinkSeller extends INavLinkPersonal {
-  icon: IconType;
+    icon: IconType;
 }
+
 const list_menu: INavLinkSeller[] = [
-  {
-    path: "/seller/dashboard",
-    label: "Dashboard",
-    icon: HiHome,
-  },
-  {
-    path: "/seller/my-shop",
-    label: "My Shop",
-    icon: HiMiniShoppingBag,
-  },
+    {
+        path: "/seller/dashboard",
+        label: "Dashboard",
+        icon: HiHome,
+    },
+    {
+        path: "/seller/my-shop",
+        label: "My Shop",
+        icon: HiMiniShoppingBag,
+    },
+    {
+        path: "/seller/orders",
+        label: "My Orders",
+        icon: HiMiniTruck,
+    },
+    {
+        path: "/seller/vouchers",
+        label: "My Voucher",
+        icon: HiTicket,
+    }
 ];
 const SellerLayout: React.FC = () => {
-  const { userCurrent, logout, accessToken, isAuthenticated } = useAuth();
-  const sideBarRef = useRef<HTMLElement>(null);
-  const openIconRef = useRef<HTMLDivElement>(null);
-  const closeIconRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
-  const { load_data_request } = useRequestRole();
-  const init = async () => {
-    if (isAuthenticated) {
-      await load_data_request(accessToken ?? "");
-    }
-  };
-  useEffect(() => {
-    init();
-  }, [isAuthenticated]);
-  return (
-    <main className="flex">
-      <ModelToggle
-        elementRef={sideBarRef}
-        closeIconRef={closeIconRef}
-        openIconRef={openIconRef}
-      >
-        <section
-          ref={sideBarRef}
-          className={cn(
-            "hidden md:block fixed md:static shadow-lg md:shadow-none z-20  w-[250px] 2xl:w-[300px] min-h-screen max-h-screen border-r bg-white"
-          )}
-        >
-          <div className="h-14 flex flex-col justify-center items-center border-b relative">
-            <h1 className="font-font3 font-bold text-xl">
-              {userCurrent?.first_name} {userCurrent?.last_name}{" "}
-            </h1>
-            <Link
-              to={"/me"}
-              className="font-font3 font-bold text-sm text-orange-600 underline hover:no-underline"
+    const {userCurrent, logout, isAuthenticated, accessToken} = useAuth();
+    const sideBarRef = useRef<HTMLElement>(null);
+    const openIconRef = useRef<HTMLDivElement>(null);
+    const closeIconRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+    }, [isAuthenticated]);
+    return (
+        <main className="flex bg-neutral-100">
+            <ModelToggle
+                elementRef={sideBarRef}
+                closeIconRef={closeIconRef}
+                openIconRef={openIconRef}
             >
-              {userCurrent?.username}
-            </Link>
-            <div
-              ref={closeIconRef}
-              className="md:hidden absolute -right-5 top-50% text-xl bg-orange-600 p-2 rounded-full flex flex-col justify-center items-center text-white"
-            >
-              <HiChevronDoubleLeft />
-            </div>
-          </div>
-          <aside className=" h-[calc(100%-3.5rem)] flex flex-col justify-between">
-            <ul className="space-y-2 p-2">
-              <LoopList
-                list={list_menu}
-                render={(item: INavLinkSeller) => {
-                  return (
-                    <li className="font-font2">
-                      <NavLink
-                        to={item.path}
-                        className={({ isActive }) =>
-                          cn("px-2 py-3 flex items-center transition-all", {
-                            "bg-orange-600 text-white": isActive,
-                            "bg-neutral-100 hover:bg-neutral-200": !isActive,
-                          })
-                        }
-                      >
-                        <div className="w-5">{<item.icon />}</div>
-                        <h1 className="text-ellipsis line-clamp-1">
-                          {item.label}
+                <section
+                    ref={sideBarRef}
+                    className={cn(
+                        "hidden md:block fixed md:static shadow-lg md:shadow-none z-20  w-[250px] 2xl:w-[300px] min-h-screen max-h-screen border-r-2 bg-white py-4 border-r-orange-200"
+                    )}
+                >
+                    <div className="h-14 flex flex-col justify-center items-center relative">
+                        <h1 className="font-font3 font-bold text-xl">
+                            {userCurrent?.first_name} {userCurrent?.last_name}{" "}
                         </h1>
-                      </NavLink>
-                    </li>
-                  );
-                }}
-              />
-            </ul>
-            <ul className="space-y-2 px-2">
-              <li className="font-font2">
-                <button
-                  onClick={() => {
-                    logout();
-                    navigate("/");
-                  }}
-                  className={cn(
-                    "w-full px-2 py-3  flex items-center  transition-all bg-neutral-100 hover:bg-neutral-200"
-                  )}
-                >
-                  <div className="w-5">
-                    <HiMiniArrowRightOnRectangle />
-                  </div>
-                  <h1 className="text-ellipsis line-clamp-1">Logout</h1>
-                </button>
-              </li>
-              <li className="font-font2">
-                <NavLink
-                  to={"/"}
-                  className={({ isActive }) =>
-                    cn("px-2 py-3 flex items-center  transition-all", {
-                      "bg-orange-600 text-white": isActive,
-                      "bg-neutral-100 hover:bg-neutral-200": !isActive,
-                    })
-                  }
-                >
-                  <div className="w-5">
-                    <HiUser />
-                  </div>
-                  <h1 className="text-ellipsis line-clamp-1">Home Personal</h1>
-                </NavLink>
-              </li>
-            </ul>
-          </aside>
-        </section>
-      </ModelToggle>
-      <section className="flex-1">
-        <div className="h-14 flex justify-start items-center space-x-3 pl-3 border-b">
-          <button className="md:hidden text-2xl">
-            <div
-              ref={openIconRef}
-              className="text-xl bg-orange-600 p-2 rounded-full flex flex-col justify-center items-center text-white"
-            >
-              <HiBars3 />
-            </div>
-          </button>
-          <h1 className="font-font1 font-semibold text-2xl lg:text-3xl text-orange-600">
-            Seller Management
-          </h1>
-        </div>
-        <Outlet />
-      </section>
-    </main>
-  );
+                        <Link
+                            to={"/me"}
+                            className="font-font3 font-bold text-sm text-orange-600 underline hover:no-underline"
+                        >
+                            {userCurrent?.username}
+                        </Link>
+                        <div
+                            ref={closeIconRef}
+                            className="md:hidden absolute -right-5 top-50% text-xl bg-orange-600 p-2 rounded-full flex flex-col justify-center items-center text-white"
+                        >
+                            <HiChevronDoubleLeft/>
+                        </div>
+                    </div>
+                    <aside className=" h-[calc(100%-3.5rem)] flex flex-col justify-between">
+                        <ul className="space-y-2 p-2">
+                            <LoopList
+                                list={list_menu}
+                                render={(item: INavLinkSeller) => {
+                                    return (
+                                        <li className="font-font2">
+                                            <NavLink
+                                                to={item.path}
+                                                className={({isActive}) =>
+                                                    cn(
+                                                        "px-2 py-4 flex items-center transition-all shadow rounded-lg",
+                                                        {
+                                                            "bg-orange-600 text-white": isActive,
+                                                            "bg-white hover:bg-orange-50 hover:shadow-lg hover:text-orange-600": !isActive,
+                                                        }
+                                                    )
+                                                }
+                                            >
+                                                <div className="w-5">{<item.icon/>}</div>
+                                                <h1 className="text-ellipsis line-clamp-1">
+                                                    {item.label}
+                                                </h1>
+                                            </NavLink>
+                                        </li>
+                                    );
+                                }}
+                            />
+                        </ul>
+                        <ul className="space-y-2 px-2">
+                            <li className="font-font2">
+                                <button
+                                    onClick={() => {
+                                        logout();
+                                        navigate("/");
+                                    }}
+                                    className={cn(
+                                        "hover:text-orange-600 hover:bg-orange-50 w-full px-2 py-4  flex items-center  transition-all bg-white shadow hover:shadow-lg rounded-lg"
+                                    )}
+                                >
+                                    <div className="w-5">
+                                        <HiMiniArrowRightOnRectangle/>
+                                    </div>
+                                    <h1 className="text-ellipsis line-clamp-1">Logout</h1>
+                                </button>
+                            </li>
+                            <li className="font-font2">
+                                <NavLink
+                                    to={"/"}
+                                    className={({isActive}) =>
+                                        cn(
+                                            "px-2 py-4 flex items-center  transition-all shadow rounded-lg hover:bg-orange-50",
+                                            {
+                                                "bg-orange-600 text-white": isActive,
+                                                "bg-white hover:shadow-lg hover:text-orange-600": !isActive,
+                                            }
+                                        )
+                                    }
+                                >
+                                    <div className="w-5">
+                                        <HiUser/>
+                                    </div>
+                                    <h1 className="text-ellipsis line-clamp-1">Home Personal</h1>
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </aside>
+                </section>
+            </ModelToggle>
+            <section className="flex-1">
+                <div
+                    className="h-14 flex justify-start items-center space-x-3 pl-3 border-b-2 border-b-orange-200 bg-white ">
+                    <button className="md:hidden text-2xl">
+                        <div
+                            ref={openIconRef}
+                            className="text-xl bg-orange-600 p-2 rounded-full flex flex-col justify-center items-center text-white"
+                        >
+                            <HiBars3/>
+                        </div>
+                    </button>
+                    <h1 className="font-font1 font-semibold text-2xl lg:text-3xl text-orange-600">
+                        Seller Management
+                    </h1>
+                </div>
+                <div className="max-h-[calc(100vh-3.5rem)] overflow-y-auto">
+                    <OrderProvider token={accessToken ?? ""}>
+                        <VoucherProvider username={userCurrent?.username ?? ""}>
+                            <Outlet/>
+                        </VoucherProvider>
+                    </OrderProvider>
+                </div>
+            </section>
+        </main>
+    );
 };
 
 export default SellerLayout;

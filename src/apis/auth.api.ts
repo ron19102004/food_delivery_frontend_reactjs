@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import api, { IResponseLayout } from "./api.config";
+import api, { Entity, IResponseLayout } from "./api.config";
 import axios from "axios";
 //entity type
 export enum UserRole {
@@ -8,8 +8,7 @@ export enum UserRole {
   ADMIN= "ADMIN",
   DELIVER = "DELIVER",
 }
-export interface UserEntity {
-  id: number;
+export interface UserEntity extends Entity{
   updatedAt: string;
   createdAt: string;
   first_name: string;

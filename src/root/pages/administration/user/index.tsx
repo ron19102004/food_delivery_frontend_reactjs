@@ -60,7 +60,7 @@ const UserManagerAdmin: React.FC = () => {
     <div>
       <div className="md:flex md:justify-start md:items-center">
         <div className="px-2 pt-2 md:pl-4 md:pt-4 flex items-center justify-start">
-          <h1 className=" font-font3 font-semibold text-lg border py-2 px-2 bg-orange-600 text-white w-full md:w-auto">
+          <h1 className=" font-font3 font-semibold text-lg border py-2 px-2 bg-orange-600 text-white w-full md:w-auto rounded">
             Totals request role
           </h1>
         </div>
@@ -68,7 +68,7 @@ const UserManagerAdmin: React.FC = () => {
       </div>
       <div className="px-2 pt-2 md:pl-4 md:pt-2 flex justify-start items-center space-x-2">
         <button
-          className="border py-2 px-4 bg-green-600 hover:bg-green-800 text-white font-font3 flex items-center space-x-3"
+          className="border py-2 px-4 bg-green-600 hover:bg-green-800 text-white font-font3 flex items-center space-x-3 rounded-3xl"
           onClick={async () => {
             await load_data_request(accessToken ?? "");
             toast("Reloaded", {
@@ -81,7 +81,7 @@ const UserManagerAdmin: React.FC = () => {
           <span>Reload</span>
         </button>
         <button
-          className="border py-2 px-4 bg-blue-600 hover:bg-blue-800 text-white font-font3 flex items-center space-x-3"
+          className="border py-2 px-4 bg-blue-600 hover:bg-blue-800 text-white font-font3 flex items-center space-x-3 rounded-3xl"
           onClick={onOpen}
         >
           <HiMiniBolt />

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  CategoryEntity,
-  getAllCategory,
-  removeCategory,
-} from "../../../../apis/category.api";
+import { CategoryEntity, removeCategory } from "../../../../apis/category.api";
 import CategoryTable from "./table";
 import {
   useDisclosure,
@@ -13,13 +9,22 @@ import {
   ModalHeader,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { HiArrowPath, HiMiniPlus } from "react-icons/hi2";
+import {
+  HiArchiveBoxXMark,
+  HiArrowPath,
+  HiMiniPencilSquare,
+  HiMiniPlus,
+} from "react-icons/hi2";
 import { toast } from "react-toastify";
 import CreateCategoryForm from "./create";
 import EditCategoryForm from "./edit";
 import useAuth from "../../../../hooks/useAuth.hook";
+import useCategory from "../../../../hooks/useCategory.hook";
+import useList from "../../../../hooks/useList.hook";
 const CategoryAdminPage: React.FC = () => {
-  const [list, setList] = useState<CategoryEntity[]>([]);
+  const { list: categories } = useCategory();
+  const { addItem, list, removeItem, setList, updateItem } =
+    useList<CategoryEntity>();
   const [rowSelected, setRowSelected] = useState<CategoryEntity | null>(null);
   const { accessToken } = useAuth();
   const {
@@ -33,25 +38,16 @@ const CategoryAdminPage: React.FC = () => {
     onClose: onCloseEdit,
   } = useDisclosure();
   const initialize = async () => {
-    await getAllCategory(
-      (res) => {
-        if (res.status) {
-          setList(res.data);
-        }
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
+    setList(categories);
   };
   useEffect(() => {
     initialize();
-  }, []);
+  }, [categories]);
   return (
     <div>
       <div className="px-2 pt-2 md:px-4 font-font3 font-semibold flex justify-start items-center space-x-2">
         <button
-          className="w-full md:w-auto  border border-neutral-800 h-10 px-3 bg-neutral-800 hover:bg-neutral-900 text-white rounded-sm flex justify-center items-center space-x-1"
+          className="w-full md:w-auto  border border-neutral-800 h-10 px-3 bg-neutral-800 hover:bg-neutral-900 text-white rounded-3xl flex justify-center items-center space-x-1"
           onClick={async () => {
             await initialize();
             toast("Reloaded", {
@@ -63,7 +59,7 @@ const CategoryAdminPage: React.FC = () => {
           <span>Reload</span>
         </button>
         <button
-          className="w-full md:w-auto  border border-green-500 h-10 px-3 bg-green-500 hover:bg-green-600 text-white rounded-sm flex justify-center items-center space-x-1"
+          className="w-full md:w-auto  border border-green-500 h-10 px-3 bg-green-500 hover:bg-green-600 text-white rounded-3xl flex justify-center items-center space-x-1"
           onClick={onOpenCreate}
         >
           <HiMiniPlus />
@@ -71,9 +67,10 @@ const CategoryAdminPage: React.FC = () => {
         </button>
         <button
           onClick={onOpenEdit}
-          className="w-full md:w-auto  border border-yellow-500 h-10 px-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-sm flex justify-center items-center space-x-1"
+          className="w-full md:w-auto  border border-yellow-500 h-10 px-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-3xl flex justify-center items-center space-x-1"
         >
-          Edit
+          <HiMiniPencilSquare />
+          <span>Edit</span>
         </button>
         <button
           onClick={async () => {
@@ -85,13 +82,13 @@ const CategoryAdminPage: React.FC = () => {
                 },
                 async (res) => {
                   if (res.status) {
-                    await initialize();
+                    removeItem(rowSelected);
                     toast("Deleted", {
                       type: "success",
                     });
-                    return
+                    return;
                   }
-                  toast(res.message?? "Undefined error", {
+                  toast(res.message ?? "Undefined error", {
                     type: "error",
                   });
                 },
@@ -103,9 +100,10 @@ const CategoryAdminPage: React.FC = () => {
               );
             }
           }}
-          className="w-full md:w-auto border border-red-500 h-10 px-3 bg-red-500 hover:bg-red-600 text-white rounded-sm flex justify-center items-center space-x-1"
+          className="w-full md:w-auto border border-red-500 h-10 px-3 bg-red-500 hover:bg-red-600 text-white rounded-3xl flex justify-center items-center space-x-1"
         >
-          Delete
+          <HiArchiveBoxXMark />
+          <span>Delete</span>
         </button>
       </div>
       <div>
@@ -123,10 +121,7 @@ const CategoryAdminPage: React.FC = () => {
               New a category
             </ModalHeader>
             <ModalCloseButton />
-            <CreateCategoryForm
-              onClose={onCloseCreate}
-              reloadList={initialize}
-            />
+            <CreateCategoryForm onClose={onCloseCreate} addItem={addItem} />
           </ModalContent>
         </Modal>
       </div>
@@ -142,7 +137,7 @@ const CategoryAdminPage: React.FC = () => {
               <EditCategoryForm
                 onClose={onCloseEdit}
                 item={rowSelected}
-                loadList={initialize}
+                updateItem={updateItem}
               />
             </ModalContent>
           </Modal>

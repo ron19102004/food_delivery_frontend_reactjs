@@ -41,7 +41,7 @@ const PersonalLayout: React.FC = () => {
             <span className="font-semibold">FoodDelivery</span>
           </h1>
           <select
-            className="font-font3 font-semibold text-gray-700 list-location outline-none rounded-md py-1 px-2 text-lg border focus:border-orange-500"
+            className="font-font3 font-semibold text-gray-700 list-location outline-none rounded-3xl py-1 px-2 text-lg border focus:border-orange-500"
             onChange={(e) => {
               setSearchParams({
                 location: e.target.value,
@@ -106,7 +106,7 @@ const PersonalLayout: React.FC = () => {
                 </div>
               </div>
               <button
-                className="border text-orange-600 border-orange-600 px-3 py-1 text-base rounded hover:bg-orange-600 hover:text-white transition-all"
+                className="border text-orange-600 border-orange-600 px-3 py-1 text-base rounded-3xl hover:bg-orange-600 hover:text-white transition-all"
                 onClick={() => {
                   logout();
                 }}
@@ -117,7 +117,7 @@ const PersonalLayout: React.FC = () => {
           ) : (
             <Link
               to={"/auth/login"}
-              className="block border text-orange-600 border-orange-600 px-3 py-1 text-base rounded hover:bg-orange-600 hover:text-white transition-all"
+              className="block border text-orange-600 border-orange-600 px-3 py-1 text-base rounded-3xl hover:bg-orange-600 hover:text-white transition-all"
             >
               Sign In
             </Link>

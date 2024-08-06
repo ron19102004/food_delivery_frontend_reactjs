@@ -3,19 +3,19 @@ import { cn } from "../../../../lib/utils";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../../../../components/input.component";
 import useAuth from "../../../../hooks/useAuth.hook";
-import { newCategory } from "../../../../apis/category.api";
+import { CategoryEntity, newCategory } from "../../../../apis/category.api";
 import { toast } from "react-toastify";
 
 interface ICreateCateForm {
   onClose(): void;
-  reloadList(): Promise<void>;
+  addItem(item: CategoryEntity): void;
 }
 interface IDataForm {
   name: string;
 }
 const CreateCategoryForm: React.FC<ICreateCateForm> = ({
   onClose,
-  reloadList,
+  addItem,
 }) => {
   const { accessToken } = useAuth();
   const {
@@ -34,7 +34,7 @@ const CreateCategoryForm: React.FC<ICreateCateForm> = ({
           toast(res?.message ?? "Successfully!", {
             type: "success",
           });
-          await reloadList();
+          addItem(res.data)
           onClose();
           return;
         }

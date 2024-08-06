@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import api, { IResponseLayout } from "./api.config";
+import api, { Entity, IResponseLayout } from "./api.config";
 import { UserEntity } from "./auth.api";
 
-export interface RequestRoleEntity {
-  id: number;
+export interface RequestRoleEntity extends Entity{
   updatedAt: string;
   createdAt: string;
   role: string;

@@ -2,11 +2,9 @@ import React, { useEffect } from "react";
 import LoopList from "../../../../components/loop.component";
 import { CategoryEntity } from "../../../../apis/category.api";
 import { cn } from "../../../../lib/utils";
-interface ICateTable {
-  list: Array<CategoryEntity>;
-  rowSelected: CategoryEntity | null;
-  setRowSelected(row: CategoryEntity): void;
-}
+import { ITableProps } from "../../../../interfaces/props.table";
+import {dateFormat} from "../../../../utils/date.util.ts";
+interface ICateTable extends ITableProps<CategoryEntity> {}
 const CategoryTable: React.FC<ICateTable> = ({
   list,
   rowSelected,
@@ -46,14 +44,20 @@ const CategoryTable: React.FC<ICateTable> = ({
                     <td className="p-3 px-5">{item.id}</td>
                     <td className="p-3 px-5">{item.name}</td>
                     <td className="p-3 px-5">
-                      <img
-                        src={item.image}
-                        alt="avatar"
-                        className="w-12 h-12 rounded-full"
-                      />
+                      <a
+                        href={item.image}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src={item.image}
+                          alt="avatar"
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                      </a>
                     </td>
-                    <td className="p-3 px-5">{item.createdAt}</td>
-                    <td className="p-3 px-5">{item.updatedAt}</td>
+                    <td className="p-3 px-5">{dateFormat(item.createdAt)}</td>
+                    <td className="p-3 px-5">{dateFormat(item.updatedAt)}</td>
                   </tr>
                 );
               }}

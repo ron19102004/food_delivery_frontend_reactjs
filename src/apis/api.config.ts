@@ -7,3 +7,6 @@ export interface IResponseLayout<T>{
   message: string;
   status: boolean;
 }
+export interface Entity{
+  id: number;
+}

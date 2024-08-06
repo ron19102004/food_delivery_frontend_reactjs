@@ -1,24 +1,28 @@
-import { create } from "zustand";
 import { getAllLocation, LocationEntity } from "../apis/location.api";
-import { useContext } from "react";
-import { LocationContext } from "../contexts/location.context";
+import { useEffect, useState } from "react";
 
 export interface IUseLocation {
   list: Array<LocationEntity>;
   loadList: () => Promise<void>;
 }
-export const _useLocation = create<IUseLocation>((set) => ({
-  list: [],
-  loadList: async () => {
+export const useLocation = (): IUseLocation => {
+  const [list, setList] = useState<Array<LocationEntity>>([]);
+  const loadList = async () => {
     await getAllLocation(
       (res) => {
-        set((state) => ({ ...state, list: res.data }));
+        setList(res.data);
       },
       (err) => {
         console.error(err);
       }
     );
-  },
-}));
-const useLocation = () => useContext(LocationContext);
+  };
+  useEffect(()=>{
+    loadList()
+  },[])
+  return {
+    list: list,
+    loadList: loadList,
+  };
+};
 export default useLocation;

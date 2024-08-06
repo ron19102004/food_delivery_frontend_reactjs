@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import LoopList from "../../../../components/loop.component";
 import { LocationEntity } from "../../../../apis/location.api";
 import { cn } from "../../../../lib/utils";
-interface ILocationTable {
-  list: Array<LocationEntity>;
-  rowSelected: LocationEntity | null;
-  setRowSelected(row: LocationEntity): void;
+import { ITableProps } from "../../../../interfaces/props.table";
+import {dateFormat} from "../../../../utils/date.util.ts";
+interface ILocationTable extends ITableProps<LocationEntity> {
 }
 const LocationTable: React.FC<ILocationTable> = ({
   list,
@@ -46,8 +45,8 @@ const LocationTable: React.FC<ILocationTable> = ({
                     <td className="p-3 px-5">{item.id}</td>
                     <td className="p-3 px-5">{item.name}</td>
                     <td className="p-3 px-5">{item.code}</td>
-                    <td className="p-3 px-5">{item.createdAt}</td>
-                    <td className="p-3 px-5">{item.updatedAt}</td>
+                    <td className="p-3 px-5">{dateFormat(item.createdAt)}</td>
+                    <td className="p-3 px-5">{dateFormat(item.updatedAt)}</td>
                   </tr>
                 );
               }}

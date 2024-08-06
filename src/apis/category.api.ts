@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-import api, { IResponseLayout } from "./api.config";
+import api, { Entity, IResponseLayout } from "./api.config";
 
-export interface CategoryEntity {
-  id: number;
+export interface CategoryEntity extends Entity{
   updatedAt: string;
   createdAt: string;
   name: string;

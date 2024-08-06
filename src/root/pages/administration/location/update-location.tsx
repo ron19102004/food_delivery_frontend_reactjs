@@ -3,24 +3,24 @@ import { cn } from "../../../../lib/utils";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../../../../components/input.component";
 import useAuth from "../../../../hooks/useAuth.hook";
-import useLocation from "../../../../hooks/useLocation.hook";
-import {
-  LocationEntity,
-  updateLocation,
-} from "../../../../apis/location.api";
+import { LocationEntity, updateLocation } from "../../../../apis/location.api";
 import { toast } from "react-toastify";
 
 interface IUpdateLocationForm {
   item: LocationEntity;
   onClose(): void;
+  updateItem(id: number, item: LocationEntity): void;
 }
 interface IDataForm {
   code: number;
   name: string;
 }
-const EditLocationForm: React.FC<IUpdateLocationForm> = ({ onClose, item }) => {
+const EditLocationForm: React.FC<IUpdateLocationForm> = ({
+  onClose,
+  item,
+  updateItem,
+}) => {
   const { accessToken } = useAuth();
-  const { loadList } = useLocation();
   const {
     register,
     handleSubmit,
@@ -44,7 +44,7 @@ const EditLocationForm: React.FC<IUpdateLocationForm> = ({ onClose, item }) => {
           toast(res?.message ?? "Location updated successfully!", {
             type: "success",
           });
-          await loadList();
+          updateItem(item.id, res.data);
           onClose();
           return;
         }

@@ -15,18 +15,26 @@ import {
   ModalHeader,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { HiMiniPlus, HiArrowPath } from "react-icons/hi2";
+import {
+  HiMiniPlus,
+  HiArrowPath,
+  HiArchiveBoxXMark,
+  HiMiniPencilSquare,
+} from "react-icons/hi2";
 import { toast } from "react-toastify";
 import useAuth from "../../../../hooks/useAuth.hook";
 import EditLocationForm from "./update-location";
+import useList from "../../../../hooks/useList.hook";
 
 const cases_filter: string[] = ["Name", "Code"];
 const LocationAdminPage: React.FC = () => {
   const { accessToken } = useAuth();
   const [indexFilterCase, setIndexFilterCase] = useState<number>(0);
   const [searchValue, setSearchValue] = useState<string | undefined>(undefined);
-  const { list, loadList } = useLocation();
+  const { list: _list, loadList } = useLocation();
   const [listRender, setListRender] = useState<LocationEntity[]>([]);
+  const { list, setList, removeItem, updateItem, addItem } =
+    useList<LocationEntity>();
   const {
     isOpen: isOpenCreate,
     onOpen: onOpenCreate,
@@ -85,7 +93,7 @@ const LocationAdminPage: React.FC = () => {
           toast(res.message, {
             type: "success",
           });
-          await loadList();
+          removeItem(rowSelected);
         }
       },
       (err) => {
@@ -97,12 +105,16 @@ const LocationAdminPage: React.FC = () => {
     );
   };
   useEffect(() => {
+    setList(_list);
+    setListRender(list);
+  }, [_list]);
+  useEffect(() => {
     setListRender(list);
   }, [list]);
   return (
     <div>
       <div className="px-2 pt-2 md:px-4 md:pt-4 md:flex items-center md:space-x-4 space-y-2 md:space-y-0">
-        <div className="border flex md:inline-flex justify-center items-center h-10 border-orange-600 md:border-neutral-300">
+        <div className="border flex md:inline-flex justify-center items-center h-10 border-neutral-300 bg-white shadow-lg rounded">
           <h1 className="font-font3 text-md lg:text-lg px-3 ">
             Totals : <span className="font-bold">{list.length}</span>{" "}
             {list.length > 1 ? "items" : "item"}
@@ -138,7 +150,7 @@ const LocationAdminPage: React.FC = () => {
       </div>
       <div className="px-2 pt-2 md:px-4 font-font3 font-semibold flex justify-start items-center space-x-2">
         <button
-          className="border border-neutral-800 h-10 px-3 bg-neutral-800 hover:bg-neutral-900 text-white rounded-sm flex justify-center items-center space-x-1"
+          className="border border-neutral-800 h-10 px-3 bg-neutral-800 hover:bg-neutral-900 text-white rounded-3xl flex justify-center items-center space-x-1"
           onClick={async () => {
             await loadList();
             toast("Reloaded", {
@@ -150,7 +162,7 @@ const LocationAdminPage: React.FC = () => {
           <span>Reload</span>
         </button>
         <button
-          className="border border-green-500 h-10 px-3 bg-green-500 hover:bg-green-600 text-white rounded-sm flex justify-center items-center space-x-1"
+          className="border border-green-500 h-10 px-3 bg-green-500 hover:bg-green-600 text-white rounded-3xl flex justify-center items-center space-x-1"
           onClick={onOpenCreate}
         >
           <HiMiniPlus />
@@ -158,15 +170,17 @@ const LocationAdminPage: React.FC = () => {
         </button>
         <button
           onClick={onOpenEdit}
-          className="border border-yellow-500 h-10 px-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-sm flex justify-center items-center space-x-1"
+          className="border border-yellow-500 h-10 px-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-3xl flex justify-center items-center space-x-1"
         >
-          Edit
+          <HiMiniPencilSquare />
+          <span>Edit</span>
         </button>
         <button
           onClick={_deleteLocation}
-          className="border border-red-500 h-10 px-3 bg-red-500 hover:bg-red-600 text-white rounded-sm flex justify-center items-center space-x-1"
+          className="border border-red-500 h-10 px-3 bg-red-500 hover:bg-red-600 text-white rounded-3xl flex justify-center items-center space-x-1"
         >
-          Delete
+          <HiArchiveBoxXMark />
+          <span>Delete</span>
         </button>
       </div>
       <div className="pt-2">
@@ -186,7 +200,7 @@ const LocationAdminPage: React.FC = () => {
               New a location
             </ModalHeader>
             <ModalCloseButton />
-            <CreateLocationForm onClose={onCloseCreate} />
+            <CreateLocationForm onClose={onCloseCreate} addItem={addItem} />
           </ModalContent>
         </Modal>
       </div>
@@ -199,7 +213,11 @@ const LocationAdminPage: React.FC = () => {
                 Edit {rowSelected.name}-{rowSelected.code}
               </ModalHeader>
               <ModalCloseButton />
-              <EditLocationForm onClose={onCloseEdit} item={rowSelected} />
+              <EditLocationForm
+                onClose={onCloseEdit}
+                item={rowSelected}
+                updateItem={updateItem}
+              />
             </ModalContent>
           </Modal>
         </div>

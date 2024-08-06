@@ -41,7 +41,7 @@ const DashboardAdminPage: React.FC = () => {
         Totals user on system
       </h1>
       <div className="px-2 md:px-4 flex items-center space-y-1 md:space-y-0 md:space-x-2 flex-wrap">
-        <div className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto">
+        <div className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto bg-white shadow-lg rounded">
           <h1 className="font-font2">User </h1>
           <HiArrowLongRight className="text-orange-600" />
           <h1>
@@ -51,7 +51,7 @@ const DashboardAdminPage: React.FC = () => {
             {totalsUser.totalsUser > 1 ? "users" : "user"}
           </h1>
         </div>
-        <div className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto">
+        <div className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto bg-white shadow-lg rounded">
           <h1 className="font-font2">Seller </h1>
           <HiArrowLongRight className="text-orange-600" />
           <h1>
@@ -61,7 +61,7 @@ const DashboardAdminPage: React.FC = () => {
             {totalsUser.totalsSeller > 1 ? "sellers" : "seller"}
           </h1>
         </div>
-        <div className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto">
+        <div className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto bg-white shadow-lg rounded">
           <h1 className="font-font2">Deliver </h1>
           <HiArrowLongRight className="text-orange-600" />
           <h1>

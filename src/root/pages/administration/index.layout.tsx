@@ -17,6 +17,7 @@ import { INavLinkPersonal } from "../personal/index.layout";
 import LoopList from "../../../components/loop.component";
 import { IconType } from "react-icons/lib";
 import useRequestRole from "../../../hooks/useRequestRole.hook";
+import { UserRole } from "../../../apis/auth.api";
 interface INavLinkAdmin extends INavLinkPersonal {
   icon: IconType;
 }
@@ -50,7 +51,7 @@ const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
   const { load_data_request } = useRequestRole();
   const init = async () => {
-    if (isAuthenticated) {
+    if (isAuthenticated && userCurrent?.role === UserRole.ADMIN) {
       await load_data_request(accessToken ?? "");
     }
   };
@@ -58,7 +59,7 @@ const AdminLayout: React.FC = () => {
     init();
   }, [isAuthenticated]);
   return (
-    <main className="flex">
+    <main className="flex bg-neutral-100">
       <ModelToggle
         elementRef={sideBarRef}
         closeIconRef={closeIconRef}
@@ -67,10 +68,10 @@ const AdminLayout: React.FC = () => {
         <section
           ref={sideBarRef}
           className={cn(
-            "hidden md:block fixed md:static shadow-lg md:shadow-none z-20  w-[250px] 2xl:w-[300px] min-h-screen max-h-screen border-r bg-white"
+            "hidden md:block fixed md:static shadow-lg md:shadow-none z-20  w-[250px] 2xl:w-[300px] min-h-screen max-h-screen border-r-2 border-r-orange-200 bg-white py-4"
           )}
         >
-          <div className="h-14 flex flex-col justify-center items-center border-b relative">
+          <div className="h-14 flex flex-col justify-center items-center relative">
             <h1 className="font-font3 font-bold text-xl">
               {userCurrent?.first_name} {userCurrent?.last_name}{" "}
             </h1>
@@ -97,10 +98,13 @@ const AdminLayout: React.FC = () => {
                       <NavLink
                         to={item.path}
                         className={({ isActive }) =>
-                          cn("px-2 py-3 flex items-center transition-all", {
-                            "bg-orange-600 text-white": isActive,
-                            "bg-neutral-100 hover:bg-neutral-200": !isActive,
-                          })
+                          cn(
+                            "px-2 py-4 flex items-center transition-all shadow rounded-lg",
+                            {
+                              "bg-orange-600 text-white": isActive,
+                              "bg-white hover:shadow-lg hover:bg-orange-50 hover:text-orange-600": !isActive,
+                            }
+                          )
                         }
                       >
                         <div className="w-5">{<item.icon />}</div>
@@ -121,7 +125,7 @@ const AdminLayout: React.FC = () => {
                     navigate("/");
                   }}
                   className={cn(
-                    "w-full px-2 py-3  flex items-center  transition-all bg-neutral-100 hover:bg-neutral-200"
+                    "hover:text-orange-600 hover:bg-orange-50 w-full px-2 py-4  flex items-center  transition-all bg-white hover:shadow-lg shadow rounded-lg"
                   )}
                 >
                   <div className="w-5">
@@ -134,10 +138,13 @@ const AdminLayout: React.FC = () => {
                 <NavLink
                   to={"/"}
                   className={({ isActive }) =>
-                    cn("px-2 py-3 flex items-center  transition-all", {
-                      "bg-orange-600 text-white": isActive,
-                      "bg-neutral-100 hover:bg-neutral-200": !isActive,
-                    })
+                    cn(
+                      "px-2 py-4 flex items-center  transition-all shadow rounded-lg",
+                      {
+                        "bg-orange-600 text-white": isActive,
+                        "bg-white hover:shadow-lg hover:bg-orange-50 hover:text-orange-600": !isActive,
+                      }
+                    )
                   }
                 >
                   <div className="w-5">
@@ -151,7 +158,7 @@ const AdminLayout: React.FC = () => {
         </section>
       </ModelToggle>
       <section className="flex-1">
-        <div className="h-14 flex justify-start items-center space-x-3 pl-3 border-b">
+        <div className="h-14 flex justify-start items-center space-x-3 pl-3 border-b-2 border-b-orange-200 bg-white">
           <button className="md:hidden text-2xl">
             <div
               ref={openIconRef}
@@ -164,7 +171,9 @@ const AdminLayout: React.FC = () => {
             Admin Management
           </h1>
         </div>
-        <Outlet />
+        <div className="max-h-[calc(100vh-3.5rem)] overflow-y-auto">
+          <Outlet />
+        </div>
       </section>
     </main>
   );

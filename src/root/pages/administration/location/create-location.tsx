@@ -3,20 +3,22 @@ import { cn } from "../../../../lib/utils";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../../../../components/input.component";
 import useAuth from "../../../../hooks/useAuth.hook";
-import useLocation from "../../../../hooks/useLocation.hook";
-import { createLocation } from "../../../../apis/location.api";
+import { createLocation, LocationEntity } from "../../../../apis/location.api";
 import { toast } from "react-toastify";
 
 interface ICreateLocationForm {
   onClose(): void;
+  addItem(item: LocationEntity): void;
 }
 interface IDataForm {
   code: number;
   name: string;
 }
-const CreateLocationForm: React.FC<ICreateLocationForm> = ({ onClose }) => {
+const CreateLocationForm: React.FC<ICreateLocationForm> = ({
+  onClose,
+  addItem,
+}) => {
   const { accessToken } = useAuth();
-  const { loadList } = useLocation();
   const {
     register,
     handleSubmit,
@@ -34,7 +36,7 @@ const CreateLocationForm: React.FC<ICreateLocationForm> = ({ onClose }) => {
           toast(res?.message ?? "Location created successfully!", {
             type: "success",
           });
-          await loadList();
+          addItem(res.data);
           onClose();
           return;
         }
