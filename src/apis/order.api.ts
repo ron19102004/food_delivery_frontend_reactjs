@@ -4,7 +4,7 @@ import api, {Entity, IResponseLayout} from "./api.config";
 import {UserEntity} from "./auth.api";
 import {AssessmentEntity, DeliverCharges, DeliverEntity} from "./deliver.api";
 import {FoodEntity} from "./food.api";
-import {VoucherEntity} from "./voucher.api.tsx";
+import {VoucherEntity} from "./voucher.api.ts";
 
 export interface CommentEntity extends Entity {
     content: string;

@@ -114,7 +114,7 @@ const LocationAdminPage: React.FC = () => {
   return (
     <div>
       <div className="px-2 pt-2 md:px-4 md:pt-4 md:flex items-center md:space-x-4 space-y-2 md:space-y-0">
-        <div className="border flex md:inline-flex justify-center items-center h-10 border-neutral-300 bg-white shadow-lg rounded">
+        <div className="border flex md:inline-flex justify-center items-center h-10 border-neutral-300 bg-white shadow-lg rounded-lg">
           <h1 className="font-font3 text-md lg:text-lg px-3 ">
             Totals : <span className="font-bold">{list.length}</span>{" "}
             {list.length > 1 ? "items" : "item"}

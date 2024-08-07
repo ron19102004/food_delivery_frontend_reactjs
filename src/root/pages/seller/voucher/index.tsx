@@ -7,13 +7,13 @@ import {
     HiMiniPlus
 } from "react-icons/hi2";
 import useVoucher from "../../../../hooks/useVoucher.hook.tsx";
-import {VoucherEntity} from "../../../../apis/voucher.api.tsx";
+import {VoucherEntity} from "../../../../apis/voucher.api.ts";
 import VoucherTable from "./voucher-table.tsx";
 import {Modal, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, useDisclosure} from "@chakra-ui/react";
 import CreateVoucherForm from "./create-voucher.tsx";
 import useAuth from "../../../../hooks/useAuth.hook.tsx";
 
-const VoucherSellerPage: React.FC = () => {
+const VoucherManagerPage: React.FC = () => {
     const {accessToken} = useAuth()
     const {loadList, list, hide} = useVoucher()
     const [rowSelected, setRowSelected] = useState<VoucherEntity | null>(null);
@@ -26,7 +26,7 @@ const VoucherSellerPage: React.FC = () => {
         <div>
             <div>
                 <div className={"px-2 pt-2 md:px-4 md:pt-4 flex items-center space-x-2"}>
-                    <h1 className=" text-xl font-font3 font-bold">My vouchers</h1>
+                    <h1 className=" text-xl font-font3 font-bold w-full md:w-auto">My vouchers</h1>
                     <button onClick={async () => {
                         await loadList(toast)
                     }}
@@ -88,4 +88,4 @@ const VoucherSellerPage: React.FC = () => {
     );
 };
 
-export default VoucherSellerPage;
+export default VoucherManagerPage;

@@ -71,7 +71,7 @@ const FoodTable: React.FC<IFoodTable> = ({
                     <td className="p-3 px-5">
                       <textarea
                         disabled
-                        className="min-h-40 min-w-80 max-w-80 text-black outline-none px-2 py-1 rounded disabled:bg-white"
+                        className="table-description min-h-40 min-w-80 max-w-80 text-black outline-none px-2 py-1 rounded disabled:bg-white"
                         value={item.description}
                       ></textarea>
                     </td>

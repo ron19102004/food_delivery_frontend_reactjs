@@ -7,11 +7,11 @@ import {
     HiBars3,
     HiChevronDoubleLeft,
     HiHome,
-    HiUser,
     HiMiniArrowRightOnRectangle,
     HiMiniShoppingBag,
+    HiMiniTruck,
     HiTicket,
-    HiMiniTruck
+    HiUser
 } from "react-icons/hi2";
 import ModelToggle from "../../../components/model.component";
 import {INavLinkPersonal} from "../personal/index.layout";
@@ -19,6 +19,7 @@ import LoopList from "../../../components/loop.component";
 import {IconType} from "react-icons/lib";
 import OrderProvider from "../../../contexts/order.context.tsx";
 import VoucherProvider from "../../../contexts/voucher.context.tsx";
+import {UserRole} from "../../../apis/auth.api.ts";
 
 interface INavLinkSeller extends INavLinkPersonal {
     icon: IconType;
@@ -56,7 +57,7 @@ const SellerLayout: React.FC = () => {
     useEffect(() => {
     }, [isAuthenticated]);
     return (
-        <main className="flex bg-neutral-100">
+        <main className="flex bg-gray-100 md:gap-4 md:pr-4">
             <ModelToggle
                 elementRef={sideBarRef}
                 closeIconRef={closeIconRef}
@@ -65,11 +66,11 @@ const SellerLayout: React.FC = () => {
                 <section
                     ref={sideBarRef}
                     className={cn(
-                        "hidden md:block fixed md:static shadow-lg md:shadow-none z-20  w-[250px] 2xl:w-[300px] min-h-screen max-h-screen border-r-2 bg-white py-4 border-r-orange-200"
+                        "hidden md:block fixed md:static shadow-lg z-20  w-[250px] 2xl:w-[300px] min-h-screen max-h-screen py-4 bg-gray-100"
                     )}
                 >
                     <div className="h-14 flex flex-col justify-center items-center relative">
-                        <h1 className="font-font3 font-bold text-xl">
+                        <h1 className="font-font3 font-extrabold text-xl">
                             {userCurrent?.first_name} {userCurrent?.last_name}{" "}
                         </h1>
                         <Link
@@ -156,7 +157,7 @@ const SellerLayout: React.FC = () => {
             </ModelToggle>
             <section className="flex-1">
                 <div
-                    className="h-14 flex justify-start items-center space-x-3 pl-3 border-b-2 border-b-orange-200 bg-white ">
+                    className="h-14 flex justify-start items-center space-x-3 pl-3 ">
                     <button className="md:hidden text-2xl">
                         <div
                             ref={openIconRef}
@@ -169,9 +170,11 @@ const SellerLayout: React.FC = () => {
                         Seller Management
                     </h1>
                 </div>
-                <div className="max-h-[calc(100vh-3.5rem)] overflow-y-auto">
+                <div
+                    className="content max-h-[calc(100vh-4rem)] min-h-[calc(100vh-4rem)] overflow-y-auto overflow-x-hidden rounded-3xl bg-white shadow-2xl">
                     <OrderProvider token={accessToken ?? ""}>
-                        <VoucherProvider username={userCurrent?.username ?? ""}>
+                        <VoucherProvider username={userCurrent?.username ?? ""}
+                                         userRole={userCurrent?.role ?? UserRole.USER}>
                             <Outlet/>
                         </VoucherProvider>
                     </OrderProvider>

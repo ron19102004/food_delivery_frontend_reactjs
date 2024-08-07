@@ -114,7 +114,7 @@ const MyShopInformation: React.FC = () => {
         )}
       </div>
       <div
-        className={cn("space-y-2 2xl:max-w-[calc(100%-30rem)] bg-white p-4 rounded-lg shadow-lg", {
+        className={cn("space-y-2 2xl:max-w-[calc(100%-30rem)] bg-white p-4 rounded-xl shadow-lg", {
           hidden: !isMore,
         })}
       >
@@ -124,7 +124,7 @@ const MyShopInformation: React.FC = () => {
           </div>
           <select
             defaultValue={"-1"}
-            className="flex-1 border outline-none h-10 px-2 text-orange-600 w-full"
+            className="flex-1 border outline-none h-10 px-2 text-black w-full"
             onChange={(e) => {
               if (seller) {
                 const value = e.target.value.toString();
@@ -162,7 +162,7 @@ const MyShopInformation: React.FC = () => {
             }}
             type="text"
             value={name ?? "Unknown"}
-            className="flex-1 border outline-none h-10 px-2 text-orange-600 w-full"
+            className="flex-1 border outline-none h-10 px-2 text-black w-full"
           />
         </div>
         <div className="md:flex items-center md:space-x-2 font-font3">
@@ -175,7 +175,7 @@ const MyShopInformation: React.FC = () => {
             }}
             type="text"
             value={address ?? "Unknown"}
-            className="flex-1 border outline-none h-10 px-2 text-orange-600 w-full"
+            className="flex-1 border outline-none h-10 px-2 text-black w-full"
           />
         </div>
         <div className="md:flex items-center md:space-x-2 font-font3">
@@ -188,7 +188,7 @@ const MyShopInformation: React.FC = () => {
             }}
             type="tel"
             value={phone_number ?? "Unknown"}
-            className="flex-1 border outline-none h-10 px-2 text-orange-600 w-full"
+            className="flex-1 border outline-none h-10 px-2 text-black w-full"
           />
         </div>
         <div className="md:flex items-center md:space-x-2 font-font3">
@@ -201,7 +201,7 @@ const MyShopInformation: React.FC = () => {
             }}
             type="email"
             value={email ?? "Unknown"}
-            className="flex-1 border outline-none h-10 px-2 text-orange-600 w-full"
+            className="flex-1 border outline-none h-10 px-2 text-black w-full"
           />
         </div>
         <div className="md:flex items-center md:space-x-2 font-font3">
@@ -214,7 +214,7 @@ const MyShopInformation: React.FC = () => {
             }}
             type="text"
             value={avatar_url ?? "Unknown"}
-            className="flex-1 border outline-none h-10 px-2 text-orange-600 w-full"
+            className="flex-1 border outline-none h-10 px-2 text-black w-full"
           />
         </div>
         <div className="md:flex items-center md:space-x-2 font-font3">
@@ -227,7 +227,7 @@ const MyShopInformation: React.FC = () => {
             }}
             type="text"
             value={background_url ?? "Unknown"}
-            className="flex-1 border outline-none h-10 px-2 text-orange-600 w-full"
+            className="flex-1 border outline-none h-10 px-2 text-black w-full"
           />
         </div>
         <div className="md:flex items-center md:space-x-2 font-font3">
@@ -238,7 +238,7 @@ const MyShopInformation: React.FC = () => {
             disabled
             type="text"
             value={seller?.latitude ?? "Waiting update in mobile device..."}
-            className="flex-1 border outline-none h-10 px-2 text-orange-600 w-full"
+            className="flex-1 border outline-none h-10 px-2 text-black w-full"
           />
         </div>
         <div className="md:flex items-center md:space-x-2 font-font3">
@@ -249,7 +249,7 @@ const MyShopInformation: React.FC = () => {
             disabled
             type="text"
             value={seller?.longitude ?? "Waiting update in mobile device..."}
-            className="flex-1 border outline-none h-10 px-2 text-orange-600 w-full"
+            className="flex-1 border outline-none h-10 px-2 text-black w-full"
           />
         </div>
         <div className="md:flex items-center md:space-x-2 font-font3">
@@ -261,14 +261,14 @@ const MyShopInformation: React.FC = () => {
               disabled
               value={open_at ?? "Waiting update..."}
               type="text"
-              className="border outline-none h-10 px-2 text-orange-600 w-full"
+              className="border outline-none h-10 px-2 text-black  w-full"
             />
             <input
               onChange={(e) => {
                 setOpenAt(`0000-00-00T${e.target.value}`);
               }}
               type="time"
-              className="border outline-none h-10 px-2 text-orange-600 w-full"
+              className="border outline-none h-10 px-2 text-black w-full"
             />
           </div>
         </div>
@@ -281,14 +281,14 @@ const MyShopInformation: React.FC = () => {
               disabled
               value={close_at ?? "Waiting update..."}
               type="text"
-              className="border outline-none h-10 px-2 text-orange-600 w-full"
+              className="border outline-none h-10 px-2 text-black w-full"
             />
             <input
               onChange={(e) => {
                 setCloseAt(`0000-00-00T${e.target.value}`);
               }}
               type="time"
-              className="border outline-none h-10 px-2 text-orange-600 w-full"
+              className="border outline-none h-10 px-2 text-black w-full"
             />
           </div>
         </div>

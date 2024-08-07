@@ -30,7 +30,7 @@ import {
     UserManagerAdmin,
 } from "../../pages/administration/index.page";
 import useRequestRole from "../../../hooks/useRequestRole.hook";
-import {DashboardSellerPage, ShopSellerPage, VoucherSellerPage,MyOrderSellerPage} from "../../pages/seller/index.page";
+import {DashboardSellerPage, ShopSellerPage, VoucherManagerPage,MyOrderSellerPage} from "../../pages/seller/index.page";
 import SellerLayout from "../../pages/seller/index.layout";
 
 const router = createBrowserRouter([
@@ -105,6 +105,10 @@ const router = createBrowserRouter([
                                 path: "category",
                                 element: <CategoryAdminPage/>,
                             },
+                            {
+                                path: "vouchers",
+                                element: <VoucherManagerPage/>,
+                            },
                         ],
                     },
                 ],
@@ -136,7 +140,7 @@ const router = createBrowserRouter([
                             },
                             {
                                 path: "vouchers",
-                                element: <VoucherSellerPage/>,
+                                element: <VoucherManagerPage/>,
                             },
                         ],
                     },

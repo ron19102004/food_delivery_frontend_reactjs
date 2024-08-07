@@ -27,7 +27,7 @@ const CreateVoucherForm: React.FC<ICreateVoucherFormProps> = ({onClose,}) => {
     const [categorySelected, setCategorySelected] =
         useState<CategoryEntity | null>(null);
     const {accessToken} = useAuth();
-    const {sellerNew} = useVoucher()
+    const {add} = useVoucher()
     const {
         register,
         handleSubmit,
@@ -43,7 +43,7 @@ const CreateVoucherForm: React.FC<ICreateVoucherFormProps> = ({onClose,}) => {
     }, [categories]);
     const onSubmit: SubmitHandler<IDataForm> = async (value) => {
         if (categorySelected) {
-            await sellerNew(accessToken ?? "", {
+            await add(accessToken ?? "", {
                 category_id: categorySelected.id,
                 code: value.code,
                 expired_at: value.expired_at,
@@ -51,8 +51,9 @@ const CreateVoucherForm: React.FC<ICreateVoucherFormProps> = ({onClose,}) => {
                 name: value.name,
                 percent: value.percent,
                 quantity: value.quantity
-            }, toast)
-            onClose()
+            }, toast, () => {
+                onClose()
+            })
             return;
         }
         toast("Please select a category", {type: "error"});

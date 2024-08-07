@@ -60,7 +60,7 @@ const UserManagerAdmin: React.FC = () => {
     <div>
       <div className="md:flex md:justify-start md:items-center">
         <div className="px-2 pt-2 md:pl-4 md:pt-4 flex items-center justify-start">
-          <h1 className=" font-font3 font-semibold text-lg border py-2 px-2 bg-orange-600 text-white w-full md:w-auto rounded">
+          <h1 className=" font-font3 font-semibold text-lg border py-2 px-2 bg-orange-600 text-white w-full md:w-auto rounded-lg">
             Totals request role
           </h1>
         </div>

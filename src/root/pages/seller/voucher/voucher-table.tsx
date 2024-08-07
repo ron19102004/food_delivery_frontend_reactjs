@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import LoopList from "../../../../components/loop.component";
 import {cn} from "../../../../lib/utils";
 import {ITableProps} from "../../../../interfaces/props.table";
-import {VoucherEntity} from "../../../../apis/voucher.api.tsx";
+import {VoucherEntity} from "../../../../apis/voucher.api.ts";
 import {dateFormat} from "../../../../utils/date.util.ts";
 
 interface IVoucherTable extends ITableProps<VoucherEntity> {

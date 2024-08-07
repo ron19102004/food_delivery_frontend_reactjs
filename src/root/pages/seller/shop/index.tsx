@@ -103,7 +103,7 @@ const ShopSellerPage: React.FC = () => {
   };
   return (
     <div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap md:pt-1">
         <div className="px-2 pt-2 md:px-4 font-font3 font-semibold flex justify-start items-center space-x-2">
           <button
             className="w-full md:w-auto border border-neutral-800 h-10 px-3 bg-neutral-800 hover:bg-neutral-900 text-white rounded-3xl flex justify-center items-center"
