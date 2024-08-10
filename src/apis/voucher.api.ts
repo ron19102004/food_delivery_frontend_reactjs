@@ -60,7 +60,7 @@ export async function getAllVoucherBySellerUsername(req: {
 }
 
 export async function getAllVoucherOfSystem(handler: (res: IResponseLayout<Array<VoucherEntity>>) => void, errorHandler: (err: any) => void) {
-    await axios.get<IResponseLayout<Array<VoucherEntity>>>(api("vouchers/system"))
+    await axios.get<IResponseLayout<Array<VoucherEntity>>>(api("vouchers/system/all"))
         .then(value => handler(value.data))
         .catch(reason => errorHandler(reason));
 }

@@ -7,7 +7,7 @@ export interface LocationEntity extends Entity{
   createdAt: string;
   name: string;
   deleted: boolean;
-  code: number;
+  code: string;
 }
 export async function getAllLocation(
   handler: (res: IResponseLayout<Array<LocationEntity>>) => void,
@@ -41,7 +41,7 @@ export async function deletedLocation(
     });
 }
 export async function createLocation(
-  req: { name: string; code: number; token?: string },
+  req: { name: string; code: string; token?: string },
   handler: (res: IResponseLayout<LocationEntity>) => Promise<void>,
   errorHandler: (err: any) => void
 ) {
@@ -61,7 +61,7 @@ export async function createLocation(
     });
 }
 export async function updateLocation(
-  req: { name: string; code: number; token?: string; id?: number | string },
+  req: { name: string; code: string; token?: string; id?: number | string },
   handler: (res: IResponseLayout<LocationEntity>) => Promise<void>,
   errorHandler: (err: any) => void
 ) {

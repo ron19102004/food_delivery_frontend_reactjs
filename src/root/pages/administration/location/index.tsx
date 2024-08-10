@@ -61,7 +61,7 @@ const LocationAdminPage: React.FC = () => {
         case 1:
           setListRender(
             list.filter((item) =>
-              item.code.toString().includes(query?.toString() ?? "")
+              item.code.toLowerCase().includes(query?.toLowerCase() ?? "")
             )
           );
           break;
@@ -89,7 +89,7 @@ const LocationAdminPage: React.FC = () => {
     await deletedLocation(
       { token: accessToken ?? "", id: rowSelected.id },
       async (res) => {
-        if (res.status === true) {
+        if (res.status) {
           toast(res.message, {
             type: "success",
           });
@@ -143,6 +143,7 @@ const LocationAdminPage: React.FC = () => {
             placeholder="Search..."
             onChange={(e) => {
               setSearchValue(e.target.value);
+              console.log()
               handleSearch(e.target.value, indexFilterCase);
             }}
           />

@@ -39,7 +39,7 @@ const EditFoodForm: React.FC<IUpdateFoodForm> = ({
       description: item.description,
       price: item.price,
       sale_off: item.sale_off,
-      poster_url: undefined,
+      poster_url: item.poster,
       name: item.name,
     },
   });

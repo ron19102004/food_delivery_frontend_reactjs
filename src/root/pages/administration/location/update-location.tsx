@@ -12,7 +12,7 @@ interface IUpdateLocationForm {
   updateItem(id: number, item: LocationEntity): void;
 }
 interface IDataForm {
-  code: number;
+  code: string;
   name: string;
 }
 const EditLocationForm: React.FC<IUpdateLocationForm> = ({
@@ -89,7 +89,7 @@ const EditLocationForm: React.FC<IUpdateLocationForm> = ({
               },
             })}
             className={cn({ "border-orange-500": errors.code }, "shadow")}
-            type="number"
+            type="text"
             placeholder="Enter your code"
             required
           />

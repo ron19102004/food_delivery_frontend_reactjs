@@ -11,7 +11,7 @@ interface ICreateLocationForm {
   addItem(item: LocationEntity): void;
 }
 interface IDataForm {
-  code: number;
+  code: string;
   name: string;
 }
 const CreateLocationForm: React.FC<ICreateLocationForm> = ({
@@ -81,7 +81,7 @@ const CreateLocationForm: React.FC<ICreateLocationForm> = ({
               },
             })}
             className={cn({ "border-orange-500": errors.code }, "shadow")}
-            type="number"
+            type="text"
             placeholder="Enter your code"
             required
           />
