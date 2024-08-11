@@ -20,11 +20,8 @@ import CreateCategoryForm from "./create";
 import EditCategoryForm from "./edit";
 import useAuth from "../../../../hooks/useAuth.hook";
 import useCategory from "../../../../hooks/useCategory.hook";
-import useList from "../../../../hooks/useList.hook";
 const CategoryAdminPage: React.FC = () => {
-  const { list: categories } = useCategory();
-  const { addItem, list, removeItem, setList, updateItem } =
-    useList<CategoryEntity>();
+  const { list,loadList,removeItem,updateItem,addItem} = useCategory();
   const [rowSelected, setRowSelected] = useState<CategoryEntity | null>(null);
   const { accessToken } = useAuth();
   const {
@@ -37,19 +34,16 @@ const CategoryAdminPage: React.FC = () => {
     onOpen: onOpenEdit,
     onClose: onCloseEdit,
   } = useDisclosure();
-  const initialize = async () => {
-    setList(categories);
-  };
+
   useEffect(() => {
-    initialize();
-  }, [categories]);
+  }, [list]);
   return (
     <div>
       <div className="px-2 pt-2 md:px-4 font-font3 font-semibold flex justify-start items-center space-x-1">
         <button
           className="w-full md:w-auto  border border-neutral-800 h-10 px-3 bg-neutral-800 hover:bg-neutral-900 text-white rounded-3xl flex justify-center items-center space-x-1"
           onClick={async () => {
-            await initialize();
+            await loadList();
             toast("Reloaded", {
               type: "info",
             });
