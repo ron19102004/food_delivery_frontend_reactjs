@@ -64,7 +64,7 @@ const CreateVoucherForm: React.FC<ICreateVoucherFormProps> = ({onClose,}) => {
                 <label className="block text-lg font-font2">
                     Category<span className="text-red-600 text-xs">(*Require)</span>
                 </label>
-                <ul className="w-92 flex justify-start space-x-4 over">
+                <ul className=" scroll-y-custom w-92 flex justify-start gap-4 overflow-y-auto">
                     <LoopList
                         list={categories}
                         render={(item) => {
@@ -74,7 +74,7 @@ const CreateVoucherForm: React.FC<ICreateVoucherFormProps> = ({onClose,}) => {
                                         onClick={() => {
                                             setCategorySelected(item);
                                         }}
-                                        className={cn("border px-2 py-1 rounded font-font3", {
+                                        className={cn("border h-full min-w-40 px-2 py-1 rounded font-font3", {
                                             "bg-orange-500 text-white": categorySelected === item,
                                         })}
                                     >
