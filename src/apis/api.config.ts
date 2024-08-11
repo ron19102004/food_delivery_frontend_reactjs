@@ -1,4 +1,4 @@
-export const domain: string = "http://localhost:8080";
+export const domain: string = "http://103.172.79.198:8080";
 export default function api(url: string) {
   return `${domain}/${url}`;
 }
