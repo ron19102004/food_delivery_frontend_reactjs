@@ -51,8 +51,8 @@ const FoodTable: React.FC<IFoodTable> = ({
                       {item.category.id} - {item.category.name}
                     </td>
                     <td className="p-3 px-5">{item.name}</td>
-                    <td className="p-3 px-5">{item.price}$</td>
-                    <td className="p-3 px-5">{item.sale_price}$</td>
+                    <td className="p-3 px-5">${item.price}</td>
+                    <td className="p-3 px-5">${item.sale_price}</td>
                     <td className="p-3 px-5">{item.sale_off}%</td>
                     <td className="p-3 px-5">{item.sold}</td>
                     <td className="p-3 px-5">

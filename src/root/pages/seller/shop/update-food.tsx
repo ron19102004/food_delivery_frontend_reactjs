@@ -91,7 +91,7 @@ const EditFoodForm: React.FC<IUpdateFoodForm> = ({
         <label className="block text-lg font-font2">
           Category<span className="text-red-600 text-xs">(*Require)</span>
         </label>
-        <ul className="w-92 flex justify-start space-x-4 over">
+        <ul className="w-92 flex justify-start space-x-4 overflow-y-auto scroll-y-custom">
           <LoopList
             list={categories}
             render={(item) => {
@@ -101,7 +101,7 @@ const EditFoodForm: React.FC<IUpdateFoodForm> = ({
                     onClick={() => {
                       setCategorySelected(item);
                     }}
-                    className={cn("border px-2 py-1 rounded font-font3", {
+                    className={cn("border h-full min-w-40 px-2 py-1 rounded font-font3", {
                       "bg-orange-500 text-white": categorySelected === item,
                     })}
                   >
