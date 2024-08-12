@@ -54,7 +54,7 @@ const OrderResultSearchTable: React.FC = () => {
             <h1 className="px-2 pt-2 md:px-4 md:pt-4 text-xl font-font3 font-bold">My orders result</h1>
             <div className="text-gray-900 font-font3">
                 <div
-                    className="px-3 md:px-4 py-2 max-h-[calc(100vh-12rem)] w-[23.6rem] sm:w-[40rem] md:w-[calc(100vw-300px)] overflow-auto">
+                    className="px-3 md:px-4 py-2 max-h-[calc(100vh-12rem)] w-[22rem] sm:w-[40rem] md:w-[calc(100vw-300px)] overflow-auto">
                     <table className="w-full text-md bg-white ">
                         <thead className="sticky -top-5">
                         <tr className="border-b bg-orange-600 text-white text-sm">
@@ -75,7 +75,7 @@ const OrderResultSearchTable: React.FC = () => {
                                 return (
                                     <tr
                                         className={cn(
-                                            "border-b hover:bg-orange-400 bg-white hover:text-white cursor-pointer",
+                                            "border-b hover:bg-blue-200 bg-white cursor-pointer",
                                         )}
                                         onClick={() => {
                                         }}

@@ -20,7 +20,7 @@ const AuthenticationLayout: React.FC = () => {
           className="w-full h-full object-cover"
         />
       </section>
-      <section className="flex-1 bg-slate-50 xl:bg-white">
+      <section className="flex-1 md:bg-slate-50 xl:bg-white">
         <Outlet />
       </section>
     </main>

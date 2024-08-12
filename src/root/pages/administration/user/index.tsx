@@ -20,7 +20,7 @@ import {
 
 const UserManagerAdmin: React.FC = () => {
     const {accessToken} = useAuth();
-    const {handledList, pendingList, handleRequestRole,reload} = useRequestRole(accessToken ?? "");
+    const {handledList, pendingList, handleRequestRole, reload} = useRequestRole(accessToken ?? "");
     const [rowSelected, setRowSelected] = useState<RequestRoleEntity | null>(
         null
     );

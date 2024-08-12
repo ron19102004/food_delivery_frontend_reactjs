@@ -29,8 +29,14 @@ import {
     LocationAdminPage,
     UserManagerAdmin,
 } from "../../pages/administration/index.page";
-import {DashboardSellerPage, ShopSellerPage, VoucherManagerPage,MyOrderSellerPage} from "../../pages/seller/index.page";
+import {
+    DashboardSellerPage,
+    ShopSellerPage,
+    VoucherManagerPage,
+    MyOrderSellerPage
+} from "../../pages/seller/index.page";
 import SellerLayout from "../../pages/seller/index.layout";
+
 
 const router = createBrowserRouter([
     {
@@ -44,25 +50,11 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: "",
-                        element: <Navigate to={"/home"}/>,
+                        element: <Navigate to={"/home?page=0&location-code=VN-DN"}/>,
                     },
                     {
                         path: "home",
                         element: <HomePersonalPage/>,
-                    },
-                    {
-                        path: "food",
-                        element: <Outlet/>,
-                        children: [
-                            {
-                                path: "drink",
-                                element: <div>Drink</div>,
-                            },
-                            {
-                                path: "break-fast",
-                                element: <div>break-fast</div>,
-                            },
-                        ],
                     },
                     //Require the authenticated
                     {

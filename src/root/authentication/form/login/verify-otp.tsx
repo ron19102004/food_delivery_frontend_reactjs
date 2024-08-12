@@ -25,7 +25,7 @@ const VerifyOTP: FC<IVerifyOTPProps> = ({ token }) => {
           token: token,
         },
         (res) => {
-          if (res.status === false) {
+          if (!res.status) {
             toast(res.message, {
               type: "error",
             });
@@ -48,7 +48,7 @@ const VerifyOTP: FC<IVerifyOTPProps> = ({ token }) => {
   };
   return (
     <div className="flex flex-col justify-center items-center min-h-full text-slate-700">
-      <div className="p-10 bg-slate-50 rounded xl:shadow-lg">
+      <div className="p-10 bg-white rounded xl:shadow-lg">
         <h1 className="font-font1 text-4xl lg:text-5xl font-semibold text-center px-5 md:px-0 text-orange-600">
           Welcome To {APP_NAME}
         </h1>

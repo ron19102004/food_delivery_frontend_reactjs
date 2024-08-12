@@ -61,7 +61,7 @@ const AdminLayout: React.FC = () => {
         init();
     }, [isAuthenticated]);
     return (
-        <main className="flex bg-gray-100 md:gap-4 md:pr-4">
+        <main className="flex bg-gray-100">
             <ModelToggle
                 elementRef={sideBarRef}
                 closeIconRef={closeIconRef}
@@ -161,7 +161,7 @@ const AdminLayout: React.FC = () => {
             </ModelToggle>
             <section className="flex-1">
                 <div
-                    className="h-14 flex justify-start items-center space-x-3 pl-3">
+                    className="md:hidden h-14 flex justify-start items-center space-x-3 pl-3 ">
                     <button className="md:hidden text-2xl">
                         <div
                             ref={openIconRef}
@@ -175,7 +175,7 @@ const AdminLayout: React.FC = () => {
                     </h1>
                 </div>
                 <div
-                    className="content max-h-[calc(100vh-4rem)] min-h-[calc(100vh-4rem)] overflow-y-auto overflow-x-hidden rounded-3xl bg-white shadow-2xl">
+                    className="content md:min-h-screen md:max-h-screen max-h-[calc(100vh-4rem)] min-h-[calc(100vh-4rem)] overflow-y-auto overflow-x-hidden bg-white shadow-2xl">
                     <VoucherProvider username={userCurrent?.username ?? ""}
                                      userRole={userCurrent?.role ?? UserRole.USER}>
                         <Outlet/>

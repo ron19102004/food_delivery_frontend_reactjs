@@ -13,7 +13,7 @@ const CategoryTable: React.FC<ICateTable> = ({
   useEffect(() => {}, [list, rowSelected]);
   return (
     <div className="text-gray-900 font-font3">
-      <div className=" px-3 py-2 max-h-[calc(100vh-13rem)] w-[23.6rem] sm:w-[40rem] md:w-full overflow-auto">
+      <div className=" px-3 py-2 max-h-[calc(100vh-13rem)] w-[22rem] sm:w-[40rem] md:w-full overflow-auto">
         <table className="w-full text-md bg-white rounded">
           <thead className="sticky top-0">
             <tr className="border-b bg-orange-600 text-white">
@@ -31,9 +31,9 @@ const CategoryTable: React.FC<ICateTable> = ({
                 return (
                   <tr
                     className={cn(
-                      "border-b hover:bg-orange-400 bg-neutral-50 hover:text-white cursor-pointer",
+                      "border-b hover:bg-blue-200 bg-neutral-50  cursor-pointer",
                       {
-                        "bg-orange-500 text-white font-bold text-lg":
+                        "bg-blue-500 text-white font-bold text-lg":
                           rowSelected?.id === item.id,
                       }
                     )}

@@ -13,9 +13,9 @@ const FoodTable: React.FC<IFoodTable> = ({
   useEffect(() => {}, [list, rowSelected]);
   return (
     <div className="text-gray-900 font-font3">
-      <div className=" px-3 py-2 max-h-[calc(100vh-12rem)] w-[23.6rem] sm:w-[40rem] md:w-[calc(100vw-300px)] overflow-auto">
+      <div className=" px-3 py-2 max-h-[calc(100vh-12rem)] w-[22rem] sm:w-[40rem] md:w-[calc(100vw-300px)] overflow-auto">
         <table className="w-full text-md bg-white ">
-          <thead className="sticky -top-5">
+          <thead className="sticky -top-1">
             <tr className="border-b bg-orange-600 text-white text-sm">
               <th className="text-left p-3 px-5">ID</th>
               <th className="text-left p-3 px-5">CATEGORY ID - NAME</th>
@@ -36,9 +36,9 @@ const FoodTable: React.FC<IFoodTable> = ({
                 return (
                   <tr
                     className={cn(
-                      "border-b hover:bg-orange-400 bg-white hover:text-white cursor-pointer",
+                      "border-b hover:bg-blue-200 bg-white cursor-pointer",
                       {
-                        "bg-orange-500 text-white font-semibold":
+                        "bg-blue-500 text-white font-semibold":
                           rowSelected?.id === item.id,
                       }
                     )}

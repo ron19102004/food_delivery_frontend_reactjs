@@ -43,10 +43,12 @@ const ShopSellerPage: React.FC = () => {
     onClose: onCloseEdit,
   } = useDisclosure();
   const [rowSelected, setRowSelected] = useState<FoodEntity | null>(null);
-  const initialize = async () => {
+  const [pageCurrent,setPageCurrent] = useState<number>(0);
+  const initialize = async (_pageCurrent:number) => {
     await getFoodsBySellerUsername(
       {
         seller_name: userCurrent?.username ?? "",
+        pageNumber: _pageCurrent
       },
       (res) => {
         if (res.status) {
@@ -60,7 +62,7 @@ const ShopSellerPage: React.FC = () => {
     );
   };
   useEffect(() => {
-    initialize();
+    initialize(pageCurrent);
   }, [0]);
   useEffect(() => {
     setListRender(list);
@@ -83,7 +85,7 @@ const ShopSellerPage: React.FC = () => {
         token: accessToken ?? "",
       },
       async (res) => {
-        if (res.status === true) {
+        if (res.status) {
           toast(res.message, {
             type: "success",
           });
@@ -103,77 +105,101 @@ const ShopSellerPage: React.FC = () => {
   };
   return (
     <div>
-      <div className="flex flex-wrap md:pt-1">
-        <div className="px-2 pt-2 md:px-4 font-font3 font-semibold flex justify-start items-center space-x-2">
+      <div className="flex flex-wrap md:pt-1 w-full">
+        <div
+            className="px-2 pt-2 md:l-4 font-font3 font-semibold flex justify-start items-center space-x-1 md:space-x-2 w-full md:w-auto">
           <button
-            className="w-full md:w-auto border border-neutral-800 h-10 px-3 bg-neutral-800 hover:bg-neutral-900 text-white rounded-3xl flex justify-center items-center"
-            onClick={async () => {
-              await initialize();
-              toast("Reloaded", {
-                type: "info",
-              });
-            }}
+              className="w-full md:w-auto  border border-blue-500 h-10 px-3 bg-blue-500 hover:bg-blue-600 text-white rounded-3xl flex justify-center items-center"
+              onClick={async()=>{
+                setPageCurrent(pageCurrent + 1)
+               await initialize(pageCurrent);
+                  await initialize(pageCurrent);
+                  toast(`Load with page ${pageCurrent}`, {
+                      type: "info",
+                  });
+              }}
+
           >
-            <HiArrowPath />
-            <span>Reload</span>
-          </button>
-          <button
-            className="w-full md:w-auto  border border-green-500 h-10 px-3 bg-green-500 hover:bg-green-600 text-white rounded-3xl flex justify-center items-center"
-            onClick={onOpenCreate}
-          >
-            <HiMiniPlus />
-            <span>Create</span>
-          </button>
-          <button
-            onClick={onOpenEdit}
-            className="w-full md:w-auto  border border-yellow-500 h-10 px-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-3xl flex justify-center items-center"
-          >
-            <HiMiniPencilSquare />
-            <span>Edit</span>
-          </button>
-          <button
-            onClick={handleDelete}
-            className="w-full md:w-auto border border-red-500 h-10 px-3 bg-red-500 hover:bg-red-600 text-white rounded-3xl flex justify-center items-center "
-          >
-            <HiArchiveBoxXMark />
-            <span>Delete</span>
+            <HiArrowPath/>
+            <span>Load more</span>
           </button>
         </div>
-        <div className="px-2 pt-2 md:px-4 font-font3 font-semibold flex justify-start items-center space-x-2 w-full md:w-auto">
+        <div
+            className="px-2 pt-2 md:px-0 font-font3 font-semibold flex justify-start items-center space-x-1 md:space-x-2 w-full md:w-auto">
+          <div className={"md:flex md:space-x-2 w-full md:w-auto space-y-1 md:space-y-0"}>
+            <button
+                className="w-full md:w-auto border border-neutral-800 h-10 px-3 bg-neutral-800 hover:bg-neutral-900 text-white rounded-3xl flex justify-center items-center"
+                onClick={async () => {
+                  await initialize(pageCurrent);
+                  toast("Reloaded", {
+                    type: "info",
+                  });
+                }}
+            >
+              <HiArrowPath/>
+              <span>Reload</span>
+            </button>
+            <button
+                className="w-full md:w-auto  border border-green-500 h-10 px-3 bg-green-500 hover:bg-green-600 text-white rounded-3xl flex justify-center items-center"
+                onClick={onOpenCreate}
+            >
+              <HiMiniPlus/>
+              <span>Create</span>
+            </button>
+          </div>
+          <div className={"md:flex md:space-x-2 w-full md:w-auto space-y-1 md:space-y-0"}>
+            <button
+                onClick={onOpenEdit}
+                className="w-full md:w-auto  border border-yellow-500 h-10 px-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-3xl flex justify-center items-center"
+            >
+              <HiMiniPencilSquare/>
+              <span>Edit</span>
+            </button>
+            <button
+                onClick={handleDelete}
+                className="w-full md:w-auto border border-red-500 h-10 px-3 bg-red-500 hover:bg-red-600 text-white rounded-3xl flex justify-center items-center "
+            >
+              <HiArchiveBoxXMark/>
+              <span>Delete</span>
+            </button>
+          </div>
+        </div>
+        <div
+            className="px-2 pt-2 md:px-4 font-font3 font-semibold flex justify-start items-center space-x-2 w-full md:w-auto">
           <h1 className="font-font3 font-bold">Filter</h1>
           <select
-            className="border h-10 outline-none rounded w-full md:w-auto"
-            onChange={(e) => {
-              const value = e.target.value.toString();
-              if (value === "0") {
-                setListRender(list);
-                return;
-              }
-              setListRender(
-                list.filter((item) => item.category.id.toString() === value)
-              );
-            }}
+              className="border h-10 outline-none rounded w-full md:w-auto"
+              onChange={(e) => {
+                const value = e.target.value.toString();
+                if (value === "0") {
+                  setListRender(list);
+                  return;
+                }
+                setListRender(
+                    list.filter((item) => item.category.id.toString() === value)
+                );
+              }}
           >
             <option value={0}>Default</option>
             <LoopList
-              list={categories}
-              render={(item) => {
-                return <option className="font-font3 p-4" value={item.id}>{item.name}</option>;
-              }}
+                list={categories}
+                render={(item) => {
+                  return <option className="font-font3 p-4" value={item.id}>{item.name}</option>;
+                }}
             />
           </select>
         </div>
       </div>
       <div>
         <FoodTable
-          list={listRender}
-          rowSelected={rowSelected}
-          setRowSelected={setRowSelected}
+            list={listRender}
+            rowSelected={rowSelected}
+            setRowSelected={setRowSelected}
         />
       </div>
       <div>
         <Modal isOpen={isOpenCreate} onClose={onCloseCreate}>
-          <ModalOverlay />
+          <ModalOverlay/>
           <ModalContent>
             <ModalHeader className="text-orange-600 font-font2">
               New a product

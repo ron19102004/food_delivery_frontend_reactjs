@@ -69,22 +69,6 @@ export async function getFoodDetails(
       errorHandler(err);
     });
 }
-export async function getFoodsByCategoryId(
-  req: { category_id: number },
-  handler: (res: IResponseLayout<Array<FoodEntity>>) => void,
-  errorHandler: (err: any) => void
-) {
-  await axios
-    .get<IResponseLayout<Array<FoodEntity>>>(
-      api(`foods/category/${req.category_id}`)
-    )
-    .then((res) => {
-      handler(res.data);
-    })
-    .catch((err) => {
-      errorHandler(err);
-    });
-}
 export async function getFoodsBySellerId(
   req: { seller_id: number },
   handler: (res: IResponseLayout<Array<FoodEntity>>) => void,
@@ -92,7 +76,7 @@ export async function getFoodsBySellerId(
 ) {
   await axios
     .get<IResponseLayout<Array<FoodEntity>>>(
-      api(`foods/seller/uid/${req.seller_id}`)
+      api(`foods/seller/uid/${req.seller_id}?page=0`)
     )
     .then((res) => {
       handler(res.data);
@@ -102,13 +86,13 @@ export async function getFoodsBySellerId(
     });
 }
 export async function getFoodsBySellerUsername(
-  req: { seller_name: string },
+  req: { seller_name: string , pageNumber?: number},
   handler: (res: IResponseLayout<Array<FoodEntity>>) => void,
   errorHandler: (err: any) => void
 ) {
   await axios
     .get<IResponseLayout<Array<FoodEntity>>>(
-      api(`foods/seller/username/${req.seller_name}`)
+      api(`foods/seller/username/${req.seller_name}?page=${req.pageNumber ?? 0}`)
     )
     .then((res) => {
       handler(res.data);
@@ -172,4 +156,18 @@ export async function deleteFoodById(
     .catch((err) => {
       errorHandler(err);
     });
+}
+export  async  function findAllFoodByCategoryIdAndLocationCode(pageNumber:number,category_id?:number,location_code?:string){
+  let query = ""
+  if (category_id !== undefined){
+    query += `category_id=${category_id}&`
+  }
+  if (location_code !== undefined){
+    query += `location_code=${location_code}`
+  }
+  const res = await axios.get<IResponseLayout<FoodEntity[]>>(api(`foods/products?page=${pageNumber}&${query}`));
+  if (res.status === 200 && res.data.status) {
+    return res.data.data;
+  }
+  return [];
 }

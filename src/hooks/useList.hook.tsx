@@ -9,6 +9,7 @@ interface IUseListHook<T extends Entity> {
     removeItemById: (id: number) => void;
     updateItem: (id: number, item: T) => void;
     findById: (id: number) => T | null;
+    addItems: (items: T[]) => void;
 }
 
 const useList = <T extends Entity>(
@@ -34,6 +35,9 @@ const useList = <T extends Entity>(
         }
         return null;
     }
+    const addItems = (items: T[]) => {
+        setList([...list, ...items])
+    }
     return {
         list: list,
         setList: setList,
@@ -41,7 +45,9 @@ const useList = <T extends Entity>(
         removeItem: removeItem,
         updateItem: updateItem,
         removeItemById: removeItemById,
-        findById: findById
+        findById: findById,
+        addItems: addItems
+
     };
 };
 export default useList;
