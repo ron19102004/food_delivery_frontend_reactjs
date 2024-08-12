@@ -8,7 +8,7 @@ interface IUseListHook<T extends Entity> {
     removeItem: (item: T) => void;
     removeItemById: (id: number) => void;
     updateItem: (id: number, item: T) => void;
-
+    findById: (id: number) => T | null;
 }
 
 const useList = <T extends Entity>(
@@ -27,13 +27,21 @@ const useList = <T extends Entity>(
     const removeItemById = (id: number) => {
         setList(list.filter((i) => i.id !== id));
     };
+    const findById = (id: number) => {
+        const index = list.findIndex(i => i.id.toString() == id.toString())
+        if (index > -1) {
+            return list[index];
+        }
+        return null;
+    }
     return {
         list: list,
         setList: setList,
         addItem: addItem,
         removeItem: removeItem,
         updateItem: updateItem,
-        removeItemById: removeItemById
+        removeItemById: removeItemById,
+        findById: findById
     };
 };
 export default useList;

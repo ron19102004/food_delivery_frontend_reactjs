@@ -16,7 +16,6 @@ import ModelToggle from "../../../components/model.component";
 import {INavLinkPersonal} from "../personal/index.layout";
 import LoopList from "../../../components/loop.component";
 import {IconType} from "react-icons/lib";
-import useRequestRole from "../../../hooks/useRequestRole.hook";
 import {UserRole} from "../../../apis/auth.api";
 import VoucherProvider from "../../../contexts/voucher.context.tsx";
 
@@ -52,17 +51,12 @@ const list_menu: INavLinkAdmin[] = [
     }
 ];
 const AdminLayout: React.FC = () => {
-    const {userCurrent, logout, accessToken, isAuthenticated} = useAuth();
+    const {userCurrent, logout, isAuthenticated} = useAuth();
     const sideBarRef = useRef<HTMLElement>(null);
     const openIconRef = useRef<HTMLDivElement>(null);
     const closeIconRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
-    const {load_data_request} = useRequestRole();
-    const init = async () => {
-        if (isAuthenticated && userCurrent?.role === UserRole.ADMIN) {
-            await load_data_request(accessToken ?? "");
-        }
-    };
+    const init = async () => {};
     useEffect(() => {
         init();
     }, [isAuthenticated]);

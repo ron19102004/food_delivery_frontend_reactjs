@@ -6,7 +6,6 @@ import AuthProvider from "./contexts/auth.context";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ChakraProvider } from "@chakra-ui/react";
-import RequestRoleProvider from "./contexts/request-role.context";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -24,9 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         theme="light"
       />
         <ChakraProvider>
-          <RequestRoleProvider>
             <RouterPagesProvider />
-          </RequestRoleProvider>
         </ChakraProvider>
       <ToastContainer />
     </AuthProvider>

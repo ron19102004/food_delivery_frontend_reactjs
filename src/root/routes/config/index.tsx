@@ -29,7 +29,6 @@ import {
     LocationAdminPage,
     UserManagerAdmin,
 } from "../../pages/administration/index.page";
-import useRequestRole from "../../../hooks/useRequestRole.hook";
 import {DashboardSellerPage, ShopSellerPage, VoucherManagerPage,MyOrderSellerPage} from "../../pages/seller/index.page";
 import SellerLayout from "../../pages/seller/index.layout";
 
@@ -175,7 +174,6 @@ const router = createBrowserRouter([
 ]);
 const RouterPagesProvider: React.FC = () => {
     const {isAuthenticated, checkAuth, login} = useAuth();
-    const {loadRolesRequest} = useRequestRole();
     const initializer = async () => {
         await checkAuth(
             (user, token) => {
@@ -184,7 +182,6 @@ const RouterPagesProvider: React.FC = () => {
             () => {
             }
         );
-        await loadRolesRequest();
     };
     useEffect(() => {
         initializer();

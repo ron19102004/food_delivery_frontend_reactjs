@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
-import useRequestRole from "../../../../hooks/useRequestRole.hook";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { ClassValue } from "clsx";
 import { cn } from "../../../../lib/utils";
+import {RequestRoleEntity} from "../../../../apis/request-role.api.ts";
 interface IStatusRequestRole{
-className?:ClassValue
+className?:ClassValue,
+  listHandled: RequestRoleEntity[],
+  listWaiting: RequestRoleEntity[]
 }
-const StatusRequestRole: React.FC<IStatusRequestRole> = ({className}) => {
-  const { data_request } = useRequestRole();
-  useEffect(() => {}, [data_request]);
+const StatusRequestRole: React.FC<IStatusRequestRole> = ({className,listHandled,listWaiting}) => {
+  useEffect(() => {}, [listHandled]);
+  useEffect(() => {}, [listWaiting]);
   return (
     <div className={cn("px-2 pt-2 md:px-4 md:pt-4 flex items-center justify-center md:justify-start space-x-2",className)}>
       <div className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto bg-white shadow-lg rounded-lg">
@@ -16,9 +18,9 @@ const StatusRequestRole: React.FC<IStatusRequestRole> = ({className}) => {
         <HiArrowLongRight className="text-orange-600" />
         <h1>
           <span className="font-bold font-font3">
-            {data_request.pending.length}
+            {listWaiting.length}
           </span>{" "}
-          {data_request.pending.length > 1 ? "users" : "user"}
+          {listWaiting.length > 1 ? "users" : "user"}
         </h1>
       </div>
       <div className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto bg-white shadow-lg rounded-lg">
@@ -26,9 +28,9 @@ const StatusRequestRole: React.FC<IStatusRequestRole> = ({className}) => {
         <HiArrowLongRight className="text-orange-600" />
         <h1>
           <span className="font-bold font-font3">
-            {data_request.handled.length}
+            {listHandled.length}
           </span>
-          {data_request.pending.length > 1 ? "users" : "user"}
+          {listHandled.length > 1 ? "users" : "user"}
         </h1>
       </div>
     </div>
