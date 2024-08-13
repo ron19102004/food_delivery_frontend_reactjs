@@ -6,7 +6,7 @@ interface IPropsLoopList<T> {
 }
 const LoopList = <T,>(props: IPropsLoopList<T>) =>
   Children.toArray(
-    props.list.map((item: T, index: number) => props.render(item, index))
+      props.list ? props.list.map((item: T, index: number) => props.render(item, index)) : []
   );
 
 export default LoopList;

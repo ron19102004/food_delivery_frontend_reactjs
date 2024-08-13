@@ -130,7 +130,8 @@ const ShopSellerPage: React.FC = () => {
             <button
                 className="w-full md:w-auto border border-neutral-800 h-10 px-3 bg-neutral-800 hover:bg-neutral-900 text-white rounded-3xl flex justify-center items-center"
                 onClick={async () => {
-                  await initialize(pageCurrent);
+                  setPageCurrent(0);
+                  await initialize(0);
                   toast("Reloaded", {
                     type: "info",
                   });

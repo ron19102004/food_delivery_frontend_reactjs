@@ -120,7 +120,7 @@ const LocationAdminPage: React.FC = () => {
                         {list.length > 1 ? "items" : "item"}
                     </h1>
                 </div>
-                <div className="flex justify-center items-center w-full">
+                <div className="flex justify-center items-center w-full md:w-auto">
                     <select
                         value={indexFilterCase}
                         className="outline-none px-1 py-2 border-y border-l h-10 font-font2 border-neutral-300"
