@@ -1,14 +1,14 @@
 import React from 'react';
+import {APP_APK_ID} from "../../../utils/constant.util.ts";
 
 const FooterLayout: React.FC = () => {
-    const src ="https://drive.google.com/uc?export=download&id=1XHC9diDacGAxF2HNyyaT3zG4uD7O8iDC";
     return (
         <div className=" bg-gray-900">
             <div className="max-w-2xl mx-auto text-white py-10">
                 <div className="text-center">
                     <h3 className="text-3xl mb-3"> Download our ron food delivery app </h3>
                     <p> Stay fit. All day, every day. </p>
-                    <a href={src} className="flex justify-center my-10">
+                    <a href={`https://drive.google.com/uc?export=download&id=${APP_APK_ID}`} className="flex justify-center my-10">
                         <div className="flex items-center border w-auto rounded-lg px-4 py-2  mx-2">
                             <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" className="w-7 md:w-8"
                                  alt={"pls"}/>
