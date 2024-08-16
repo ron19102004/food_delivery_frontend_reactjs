@@ -32,7 +32,7 @@ const UserManagerAdmin: React.FC = () => {
     };
     useEffect(() => {
         reload()
-    }, []);
+    }, [handledList,pendingList]);
     return (
         <div>
             <div className="md:flex md:justify-start md:items-center">
@@ -112,6 +112,7 @@ const UserManagerAdmin: React.FC = () => {
                                         className="w-full  py-2 px-1 bg-red-500"
                                         onClick={async () => {
                                             await _handleRequest(false);
+                                            onClose()
                                         }}
                                     >
                                         Refuse
@@ -120,6 +121,7 @@ const UserManagerAdmin: React.FC = () => {
                                         className="w-full  py-2 px-1 bg-green-500"
                                         onClick={async () => {
                                             await _handleRequest(true);
+                                            onClose()
                                         }}
                                     >
                                         Accept

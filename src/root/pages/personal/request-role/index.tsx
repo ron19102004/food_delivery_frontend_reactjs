@@ -39,7 +39,7 @@ const RequestRolePage: React.FC = () => {
     }
     useEffect(() => {
         init()
-    }, [listRole]);
+    }, []);
     const onSubmit: SubmitHandler<IDataForm> = async (data) => {
         if (role === null) {
             toast("Error at role selection", {
@@ -181,7 +181,7 @@ const RequestRolePage: React.FC = () => {
                         <p className="text-red-600">{errors.phone_number.message}</p>
                     )}
                 </div>
-                <div className="float-right">
+                <div className="flex items-center justify-end">
                     <button
                         type="submit"
                         className="border px-6 py-2 bg-neutral-700 text-white hover:bg-neutral-800"

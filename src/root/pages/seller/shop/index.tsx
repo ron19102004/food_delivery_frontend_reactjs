@@ -134,6 +134,7 @@ const ShopSellerPage: React.FC = () => {
                   await initialize(0);
                   toast("Reloaded", {
                     type: "info",
+
                   });
                 }}
             >
