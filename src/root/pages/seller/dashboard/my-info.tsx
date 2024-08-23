@@ -117,7 +117,7 @@ const MyShopInformation: React.FC = () => {
                 )}
             </div>
             <div
-                className={cn("space-y-2 2xl:max-w-[calc(100%-30rem)] bg-white p-4 rounded-xl shadow-lg", {
+                className={cn("space-y-2 2xl:max-w-[calc(100%-30rem)] bg-white p-4 shadow-lg", {
                     hidden: !isMore,
                 })}
             >

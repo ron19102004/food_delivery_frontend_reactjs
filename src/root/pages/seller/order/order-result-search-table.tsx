@@ -39,7 +39,7 @@ const OrderResultSearchTable: React.FC = () => {
         <div>
             <div className={"px-2  md:px-4 md:flex items-center w-full "}>
                 <select
-                    className={"w-full md:w-auto font-font2 border outline-none px-2 py-2 rounded shadow-lg font-semibold h-10"}
+                    className={"w-full md:w-auto font-font2 border outline-none px-2 py-2  shadow-lg font-semibold h-10"}
                     onChange={(e) => setCase(e.target.value)}>
                     <LoopList list={Object.values(StatusOrder)} render={item => {
                         return <option value={item} className={""}>{item}</option>
@@ -47,7 +47,7 @@ const OrderResultSearchTable: React.FC = () => {
                 </select>
                 <div>
                     <input placeholder={"Search by order code ..."}
-                           className={"w-full h-10 border rounded outline-none px-2 py-2 shadow-lg font-semibold"}
+                           className={"w-full h-10 border  outline-none px-2 py-2 shadow-lg font-semibold"}
                            type="text" onChange={(e) => filter(e.target.value, _case)}/>
                 </div>
             </div>
@@ -75,7 +75,7 @@ const OrderResultSearchTable: React.FC = () => {
                                 return (
                                     <tr
                                         className={cn(
-                                            "border-b hover:bg-blue-200 bg-white cursor-pointer",
+                                            "border-b hover:bg-blue-200 bg-white  cursor-pointer",
                                         )}
                                         onClick={() => {
                                         }}

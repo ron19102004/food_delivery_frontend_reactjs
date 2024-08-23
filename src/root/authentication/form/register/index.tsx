@@ -49,7 +49,7 @@ const RegisterFormPage: React.FC = () => {
   };
   return (
     <div className="flex flex-col justify-center items-center min-h-full text-slate-700">
-      <div className="p-10 bg-white rounded xl:shadow-lg">
+      <div className="p-10 bg-white xl:shadow-lg">
         <h1 className="font-font1 text-4xl lg:text-5xl font-semibold text-center px-5 md:px-0 text-orange-600">
           Welcome To {APP_NAME}
         </h1>
@@ -210,7 +210,7 @@ const RegisterFormPage: React.FC = () => {
           </div>
           <button
             type="submit"
-            className=" shadow-md block w-full p-4 text-white font-font2 bg-orange-500 hover:bg-orange-400 rounded-md"
+            className=" shadow-md block w-full p-4 text-white font-font2 bg-orange-500 hover:bg-orange-400 "
           >
             Sign Up
           </button>
@@ -222,7 +222,7 @@ const RegisterFormPage: React.FC = () => {
         </div>
         <NavLink
           to={"/auth/login"}
-          className=" text-center shadow-md block w-full p-4 text-white font-font2 bg-slate-700 hover:bg-slate-600 rounded-md"
+          className=" text-center shadow-md block w-full p-4 text-white font-font2 bg-slate-700 hover:bg-slate-600"
         >
           Sign In
         </NavLink>

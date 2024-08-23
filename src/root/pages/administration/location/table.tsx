@@ -31,13 +31,14 @@ const LocationTable: React.FC<ILocationTable> = ({
               render={(item) => {
                 return (
                   <tr
-                    className={cn(
-                      "border-b hover:bg-blue-200 bg-neutral-50  cursor-pointer",
-                      {
-                        "bg-blue-500 text-white font-bold text-lg":
-                          rowSelected?.id === item.id,
-                      }
-                    )}
+                      className={cn(
+                          "border-b bg-white cursor-pointer",
+                          {
+                              "bg-blue-500 text-white font-semibold":
+                                  rowSelected?.id === item.id,
+                              " hover:bg-blue-200 text-black": rowSelected?.id !== item.id,
+                          }
+                      )}
                     onClick={() => {
                       setRowSelected(item);
                     }}

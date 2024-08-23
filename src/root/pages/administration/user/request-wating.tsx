@@ -22,7 +22,7 @@ const RequestWaitingTable: React.FC<IRequestWaitingTable> = ({
     return (
         <div className="text-gray-900 font-font3">
             <div className=" px-3 py-2 max-h-[calc(100vh-30rem)] w-[22rem] sm:w-[40rem] md:w-full overflow-auto">
-                <table className="w-full text-md bg-white rounded">
+                <table className="w-full text-md bg-white border">
                     <thead className="sticky -top-5">
                     <tr className="border-b bg-orange-600 text-white">
                         <th className="text-left p-3 px-5">ID</th>
@@ -41,10 +41,11 @@ const RequestWaitingTable: React.FC<IRequestWaitingTable> = ({
                             return (
                                 <tr
                                     className={cn(
-                                        "border-b hover:bg-blue-200 bg-neutral-50  cursor-pointer",
+                                        "border-b bg-white cursor-pointer",
                                         {
-                                            "bg-blue-500 text-white font-bold text-lg":
+                                            "bg-blue-500 text-white font-semibold":
                                                 rowSelected?.id === item.id,
+                                            " hover:bg-blue-200 text-black": rowSelected?.id !== item.id,
                                         }
                                     )}
                                     onClick={() => {

@@ -97,7 +97,7 @@ const SellerLayout: React.FC = () => {
                                                 to={item.path}
                                                 className={({isActive}) =>
                                                     cn(
-                                                        "px-2 py-4 flex items-center transition-all shadow rounded-lg",
+                                                        "px-2 py-4 flex items-center transition-all shadow ",
                                                         {
                                                             "bg-orange-600 text-white": isActive,
                                                             "bg-white hover:bg-orange-50 hover:shadow-lg hover:text-orange-600": !isActive,
@@ -123,7 +123,7 @@ const SellerLayout: React.FC = () => {
                                         navigate("/");
                                     }}
                                     className={cn(
-                                        "hover:text-orange-600 hover:bg-orange-50 w-full px-2 py-4  flex items-center  transition-all bg-white shadow hover:shadow-lg rounded-lg"
+                                        "hover:text-orange-600 hover:bg-orange-50 w-full px-2 py-4  flex items-center  transition-all bg-white shadow hover:shadow-lg "
                                     )}
                                 >
                                     <div className="w-5">
@@ -137,7 +137,7 @@ const SellerLayout: React.FC = () => {
                                     to={"/"}
                                     className={({isActive}) =>
                                         cn(
-                                            "px-2 py-4 flex items-center  transition-all shadow rounded-lg hover:bg-orange-50",
+                                            "px-2 py-4 flex items-center  transition-all shadow  hover:bg-orange-50",
                                             {
                                                 "bg-orange-600 text-white": isActive,
                                                 "bg-white hover:shadow-lg hover:text-orange-600": !isActive,

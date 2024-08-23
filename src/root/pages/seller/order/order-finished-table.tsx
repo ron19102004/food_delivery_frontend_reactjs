@@ -33,10 +33,11 @@ const OrderFinishedTable: React.FC = () => {
                                 return (
                                     <tr
                                         className={cn(
-                                            "border-b hover:bg-blue-200 bg-white   cursor-pointer",
+                                            "border-b bg-white cursor-pointer",
                                             {
-                                                "bg-orange-500 text-white font-semibold":
+                                                "bg-blue-500 text-white font-semibold":
                                                     rowSelected?.id === item.id,
+                                                " hover:bg-blue-200 text-black": rowSelected?.id !== item.id,
                                             }
                                         )}
                                         onClick={() => {

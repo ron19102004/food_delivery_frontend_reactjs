@@ -54,7 +54,7 @@ export async function createVoucherForAdmin(req: {
 export async function getAllVoucherBySellerUsername(req: {
     username: string
 }, handler: (res: IResponseLayout<Array<VoucherEntity>>) => void, errorHandler: (err: any) => void) {
-    await axios.get<IResponseLayout<Array<VoucherEntity>>>(api("vouchers/" + req.username))
+    await axios.get<IResponseLayout<Array<VoucherEntity>>>(api("vouchers/seller-username/" + req.username))
         .then(value => handler(value.data))
         .catch(reason => errorHandler(reason));
 }

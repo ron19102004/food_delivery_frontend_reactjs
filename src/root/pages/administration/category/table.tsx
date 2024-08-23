@@ -14,8 +14,8 @@ const CategoryTable: React.FC<ICateTable> = ({
   return (
     <div className="text-gray-900 font-font3">
       <div className=" px-3 py-2 max-h-[calc(100vh-13rem)] w-[22rem] sm:w-[40rem] md:w-full overflow-auto">
-        <table className="w-full text-md bg-white rounded">
-          <thead className="sticky top-0">
+        <table className="w-full text-md bg-white border">
+          <thead className="sticky -top-2">
             <tr className="border-b bg-orange-600 text-white">
               <th className="text-left p-3 px-5">ID</th>
               <th className="text-left p-3 px-5">NAME</th>
@@ -30,13 +30,14 @@ const CategoryTable: React.FC<ICateTable> = ({
               render={(item) => {
                 return (
                   <tr
-                    className={cn(
-                      "border-b hover:bg-blue-200 bg-neutral-50  cursor-pointer",
-                      {
-                        "bg-blue-500 text-white font-bold text-lg":
-                          rowSelected?.id === item.id,
-                      }
-                    )}
+                      className={cn(
+                          "border-b bg-white cursor-pointer",
+                          {
+                            "bg-blue-500 text-white font-semibold":
+                                rowSelected?.id === item.id,
+                            " hover:bg-blue-200 text-black": rowSelected?.id !== item.id,
+                          }
+                      )}
                     onClick={() => {
                       setRowSelected(item);
                     }}

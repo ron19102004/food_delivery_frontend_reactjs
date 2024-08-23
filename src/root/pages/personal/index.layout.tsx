@@ -6,7 +6,6 @@ import {cn} from "../../../lib/utils";
 import useAuth from "../../../hooks/useAuth.hook";
 import {UserRole} from "../../../apis/auth.api";
 import {HiBars3, HiOutlineXMark} from "react-icons/hi2";
-import FooterLayout from "./footer.layout.tsx";
 
 export interface INavLinkPersonal {
     path: string;
@@ -45,8 +44,8 @@ const PersonalLayout: React.FC = () => {
     return (
         <main>
             <header
-                className="min-w-screen text-xl font-font2 font container bg-gray-100 py-2 xl:mt-2 xl:rounded flex flex-col space-y-4 md:space-y-0 justify-start items-start md:flex-row md:justify-between md:items-center">
-                <div className="w-full md:w-auto    md:flex md:justify-center md:items-center md:space-x-4">
+                className="fixed min-w-full z-50 backdrop-blur-xl bg-transparent text-xl font-font2 font container bg-gray-100 py-2 xl:rounded flex flex-col space-y-4 md:space-y-0 justify-start items-start md:flex-row md:justify-between md:items-center">
+                <div className="w-full md:w-auto  md:flex md:justify-center md:items-center md:space-x-4">
                     <div className={"flex items-center justify-between w-full"}>
                         <a href={"/"} className="text-orange-600 text-2xl">
                             <span>Ron</span>
@@ -87,7 +86,7 @@ const PersonalLayout: React.FC = () => {
                             className="w-full flex flex-col md:flex-row md:justify-center md:items-center md:space-x-4 space-y-4 md:space-y-0">
                             <div className={""}>
                                 <h1 className={"flex space-x-1"}>
-                                    <span>Welcome</span>
+                                    <span className={"md:text-white"}>Welcome</span>
                                     <span className="font-semibold text-orange-600">
                                           {userCurrent?.last_name}
                                     </span>
@@ -96,7 +95,7 @@ const PersonalLayout: React.FC = () => {
                                     <NavLink
                                         to={"/me"}
                                         className={({isActive}) =>
-                                            cn("text-sm", {
+                                            cn("text-sm md:text-white", {
                                                 "menu-item-active ": isActive,
                                                 "hover:text-orange-600 hover:underline": !isActive,
                                             })
@@ -108,7 +107,7 @@ const PersonalLayout: React.FC = () => {
                                 </div>
                             </div>
                             <button
-                                className="w-full border text-orange-600 border-orange-600 px-3 py-1 text-base rounded  hover:bg-orange-600 hover:text-white transition-all"
+                                className="w-full border  border-orange-600 px-3 py-1 text-base rounded bg-orange-600  md:hover:bg-orange-600  text-white transition-all"
                                 onClick={() => {
                                     logout();
                                 }}
@@ -119,17 +118,16 @@ const PersonalLayout: React.FC = () => {
                     ) : (
                         <Link
                             to={"/auth/login"}
-                            className="block border text-orange-600 border-orange-600 px-3 py-1 text-base rounded hover:bg-orange-600 hover:text-white transition-all"
+                            className="block border border-orange-600 px-3 py-1 text-base rounded bg-orange-600  text-white md:hover:text-white transition-all"
                         >
                             Sign In
                         </Link>
                     )}
                 </div>
             </header>
-            <section>
+            <section className={"pt-12 md:pt-0"}>
                 <Outlet/>
             </section>
-            <FooterLayout/>
         </main>
     );
 };
@@ -154,7 +152,7 @@ const ManagerRouterButton: React.FC<{ role: UserRole | undefined }> = ({
         }
     }, [role]);
     return url ? (
-        <Link className="hover:text-orange-600 hover:underline text-sm" to={url}>
+        <Link className="hover:text-orange-600 hover:underline text-sm md:text-white" to={url}>
             Manager
         </Link>
     ) : null;
