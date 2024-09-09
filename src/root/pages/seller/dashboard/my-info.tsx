@@ -62,8 +62,9 @@ const MyShopInformation: React.FC = () => {
         }
         if (seller) {
             const date = new Date();
-            const time_date = date.getFullYear() + `-${date.getMonth() < 9 ? "0":""}` + (date.getMonth() + 1) + "-" + date.getDate() +"T";
-            console.log(time_date)
+            const time_date = date.getFullYear() +
+                `-${date.getMonth() < 9 ? "0" : ""}` + (date.getMonth() + 1) + "-" +
+                `${date.getDate() < 10 ? "0" : ""}` + date.getDate() + "T";
             await updateSellerInfo(
                 {
                     data: {
@@ -73,8 +74,8 @@ const MyShopInformation: React.FC = () => {
                         longitude: 0,
                         phone_number: phone_number ?? "",
                         email: email ?? "",
-                        open_at: time_date + open_at ?? "",
-                        close_at: time_date + close_at ?? "",
+                        open_at: time_date + open_at + ".000Z" ?? "",
+                        close_at: time_date + close_at + ".000Z" ?? "",
                         location_id: seller.location?.id ?? 0,
                         avatar_url: avatar_url ?? "",
                         background_url: background_url ?? "",

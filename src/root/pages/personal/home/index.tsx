@@ -78,7 +78,7 @@ const HomePersonalPage: React.FC = () => {
                             <a href={`https://drive.google.com/uc?export=download&id=${APP_APK_ID}`}
                                className="flex justify-center my-10 font-font2 ">
                                 <div
-                                    className="flex items-center w-auto rounded-lg px-4 py-2 mx-2 hover:bg-orange-600 bg-transparent backdrop-blur-3xl transition-all">
+                                    className="flex items-center w-auto rounded-lg px-4 py-2 mx-2 hover:backdrop-blur-2xl bg-transparent backdrop-blur-3xl transition-all">
                                     <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png"
                                          className="w-10 md:w-14"
                                          alt={"pls"}/>
