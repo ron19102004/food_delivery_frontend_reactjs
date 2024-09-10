@@ -65,6 +65,11 @@ const HomePersonalPage: React.FC = () => {
     }, []);
     return (
         <div className={"min-w-screen relative"}>
+            <div className={"fixed bottom-0 right-0 mb-5 mr-5 z-50"}>
+                <Link to={"/request-role"} className={"py-3 px-5 bg-orange-600 rounded-full text-white shadow"}>
+                    !
+                </Link>
+            </div>
             <div className={"hidden md:block relative"}>
                 <img ref={bgRef} src={BackgroundMain} alt="bg" className={"w-full h-screen object-cover"}/>
                 <div ref={titleRef} className={"absolute z-30 top-20 left-[50%] -translate-x-[50%] transition-all"}>

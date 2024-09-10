@@ -13,7 +13,7 @@ const MyOrderSellerPage: React.FC = () => {
     return (
         <div>
             <div>
-                <div className={"px-2 pt-2 md:px-4 md:pt-4 flex items-center space-x-2"}>
+                <div className={"px-2 py-2 md:px-4 md:py-4 flex items-center space-x-2"}>
                     <h1 className=" text-xl font-font3 font-bold">My orders</h1>
                     <button onClick={async () => {
                         await reload(toast)
@@ -23,7 +23,6 @@ const MyOrderSellerPage: React.FC = () => {
                         <span>Reload</span>
                     </button>
                 </div>
-                <OrderStatus/>
             </div>
             <div>
                 <OrderResultSearchTable/>

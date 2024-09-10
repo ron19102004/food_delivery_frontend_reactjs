@@ -35,14 +35,6 @@ const UserManagerAdmin: React.FC = () => {
     }, [handledList,pendingList]);
     return (
         <div>
-            <div className="md:flex md:justify-start md:items-center">
-                <div className="px-2 pt-2 md:pl-4 md:pt-4 flex items-center justify-start">
-                    <h1 className=" font-font3 font-semibold text-lg border py-2 px-2 bg-orange-600 text-white w-full md:w-auto ">
-                        Totals request role
-                    </h1>
-                </div>
-                <StatusRequestRole className="" listWaiting={pendingList} listHandled={handledList}/>
-            </div>
             <div className="px-2 pt-2 md:pl-4 md:pt-2 flex justify-start items-center space-x-2">
                 <button
                     className="border py-2 px-4 bg-green-600 hover:bg-green-800 text-white font-font3 flex items-center space-x-3 rounded-3xl"

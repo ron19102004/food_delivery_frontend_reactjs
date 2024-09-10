@@ -4,7 +4,10 @@ import {getTotalsUser} from "../../../../apis/admin.api";
 import useAuth from "../../../../hooks/useAuth.hook";
 import {HiArrowLongRight} from "react-icons/hi2";
 import useRequestRole from "../../../../hooks/useRequestRole.hook.tsx";
+import {Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from 'chart.js';
+import {Bar} from "react-chartjs-2";
 
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 const DashboardAdminPage: React.FC = () => {
     const [totalsUser, setTotalsUser] = useState<{
         totalsUser: number;
@@ -43,41 +46,27 @@ const DashboardAdminPage: React.FC = () => {
             <h1 className="px-2 pt-1 md:px-4 font-font3 font-semibold text-xl">
                 Totals user on system
             </h1>
-            <div className="px-2 md:px-4 flex items-center space-y-1 md:space-y-0 md:space-x-2 flex-wrap">
-                <div
-                    className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto bg-white shadow-lg ">
-                    <h1 className="font-font2">User </h1>
-                    <HiArrowLongRight className="text-orange-600"/>
-                    <h1>
-            <span className="font-bold font-font3">
-              {totalsUser.totalsUser}
-            </span>{" "}
-                        {totalsUser.totalsUser > 1 ? "users" : "user"}
-                    </h1>
-                </div>
-                <div
-                    className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto bg-white shadow-lg ">
-                    <h1 className="font-font2">Seller </h1>
-                    <HiArrowLongRight className="text-orange-600"/>
-                    <h1>
-            <span className="font-bold font-font3">
-              {totalsUser.totalsSeller}
-            </span>{" "}
-                        {totalsUser.totalsSeller > 1 ? "sellers" : "seller"}
-                    </h1>
-                </div>
-                <div
-                    className="inline-flex items-center justify-center space-x-2 border px-2 md:px-4 py-2 w-full md:w-auto bg-white shadow-lg ">
-                    <h1 className="font-font2">Deliver </h1>
-                    <HiArrowLongRight className="text-orange-600"/>
-                    <h1>
-            <span className="font-bold font-font3">
-              {totalsUser.totalsDeliver}
-            </span>{" "}
-                        {totalsUser.totalsDeliver > 1 ? "sellers" : "seller"}
-                    </h1>
-                </div>
-            </div>
+            <Bar data={{
+                labels: ['User', 'Seller',"Deliver"],
+                datasets: [
+                    {
+                        label: 'Totals user on system',  // Tên của dữ liệu
+                        data: [totalsUser.totalsUser,totalsUser.totalsSeller,totalsUser.totalsDeliver],
+                        backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)',],
+                    },
+                ],
+            }} options={{
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Orders',
+                    },
+                },
+            }}/>
         </div>
     );
 };

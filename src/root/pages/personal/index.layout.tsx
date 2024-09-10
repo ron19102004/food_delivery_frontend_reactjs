@@ -86,8 +86,8 @@ const PersonalLayout: React.FC = () => {
                             className="w-full flex flex-col md:flex-row md:justify-center md:items-center md:space-x-4 space-y-4 md:space-y-0">
                             <div className={""}>
                                 <h1 className={"flex space-x-1"}>
-                                    <span className={"md:text-white"}>Welcome</span>
-                                    <span className="font-semibold text-orange-600">
+                                    <span className={""}>Welcome</span>
+                                    <span className="font-semibold text-orange-600 font-font3">
                                           {userCurrent?.last_name}
                                     </span>
                                 </h1>
@@ -95,7 +95,7 @@ const PersonalLayout: React.FC = () => {
                                     <NavLink
                                         to={"/me"}
                                         className={({isActive}) =>
-                                            cn("text-sm md:text-white", {
+                                            cn("text-sm ", {
                                                 "menu-item-active ": isActive,
                                                 "hover:text-orange-600 hover:underline": !isActive,
                                             })
@@ -152,7 +152,7 @@ const ManagerRouterButton: React.FC<{ role: UserRole | undefined }> = ({
         }
     }, [role]);
     return url ? (
-        <Link className="hover:text-orange-600 hover:underline text-sm md:text-white" to={url}>
+        <Link className="hover:text-orange-600 hover:underline text-sm" to={url}>
             Manager
         </Link>
     ) : null;
